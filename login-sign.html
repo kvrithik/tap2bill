@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nocounterbill - Authentication</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffaa6d 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .company-name {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .company-name h1 {
+            color: #e53e3e;
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-family: Cursive;
+        }
+
+        .company-name .tagline {
+            color: #718096;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .form-floating {
+            margin-bottom: 20px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-switch {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .switch-text {
+            color: #718096;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .switch-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .switch-link:hover {
+            color: #764ba2;
+        }
+
+        .error {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-control.is-invalid,
+        .form-select.is-invalid {
+            border-color: #e53e3e;
+        }
+
+        .form-control.is-valid,
+        .form-select.is-valid {
+            border-color: #38a169;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #718096;
+            z-index: 10;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #667eea;
+        }
+
+        .form-title {
+            text-align: center;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+
+        #signupForm {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+
+            <div class="company-name">
+                <h1>NoCounterBill</h1>
+                <p class="tagline">Seamless Hotel Food Ordering</p>
+            </div>
+
+
+            <div id="loginForm">
+                <h3 class="form-title">Login to Your Account</h3>
+                <form id="loginFormElement">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email"
+                            required>
+                        <label for="loginEmail"><i class="fas fa-envelope me-2"></i>Email</label>
+                        <div class="error" id="loginEmailError">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-floating position-relative">
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Enter password"
+                            required>
+                        <label for="loginPassword"><i class="fas fa-lock me-2"></i>Password</label>
+                        <span class="password-toggle" onclick="togglePassword('loginPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="error" id="loginPasswordError">Please enter your password</div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                    <br>
+                    <br>
+
+
+                </form>
+                <div class="mt-3 text-center">
+                    <a href="home.html" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i> Home
+                    </a>
+                </div>
+
+                <div class="form-switch">
+                    <span class="switch-text">Don't have an account?</span>
+                    <a class="switch-link" id="showSignup">Create New Account</a>
+                </div>
+            </div>
+
+
+            <div id="signupForm">
+                <h3 class="form-title">Create New Account</h3>
+                <form id="signupFormElement">
+                    <div class="form-floating">
+                        <select class="form-select" id="hotelName" required>
+                            <option value="" selected disabled>Select hotel name</option>
+                            <option value="Darling-near TT">Darling-near TT</option>
+                            <option value="Arasan">Arasan</option>
+                            <option value="Darling">Darling</option>
+                        </select>
+                        <label for="hotelName"><i class="fas fa-building me-2"></i>Hotel Name</label>
+                        <div class="error" id="hotelNameError">Please select a hotel name</div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="yourName" placeholder="Enter your name" required>
+                        <label for="yourName"><i class="fas fa-user me-2"></i>Your Name</label>
+                        <div class="error" id="yourNameError">Please enter a valid name (letters only)</div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
+                        <div class="error" id="emailError">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number"
+                            required>
+                        <label for="phoneNumber"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                        <div class="error" id="phoneNumberError">Please enter a valid phone number</div>
+                    </div>
+
+                    <div class="form-floating position-relative">
+                        <input type="password" class="form-control" id="newPassword" placeholder="Create password"
+                            required>
+                        <label for="newPassword"><i class="fas fa-lock me-2"></i>New Password</label>
+                        <span class="password-toggle" onclick="togglePassword('newPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="error" id="newPasswordError">Password must be at least 6 characters</div>
+                    </div>
+
+                    <div class="form-floating position-relative">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password"
+                            required>
+                        <label for="confirmPassword"><i class="fas fa-lock me-2"></i>Confirm Password</label>
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="error" id="confirmPasswordError">Passwords do not match</div>
+                    </div>
+
+                    <!-- Fixed button -->
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up
+                    </button>
+                </form>
+
+                <div class="form-switch">
+                    <span class="switch-text">Already have an account?</span>
+                    <a class="switch-link" id="showLogin">Login Here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function togglePassword(fieldId, toggleIcon) {
+            const passwordField = document.getElementById(fieldId);
+            const icon = toggleIcon.querySelector('i');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        $(document).ready(function () {
+
+            $('#showSignup').click(function (e) {
+                e.preventDefault();
+                $('#loginForm').slideUp(300);
+                $('#signupForm').slideDown(300);
+                clearErrors();
+            });
+
+            $('#showLogin').click(function (e) {
+                e.preventDefault();
+                $('#signupForm').slideUp(300);
+                $('#loginForm').slideDown(300);
+                clearErrors();
+            });
+
+
+            function validateField(fieldId, errorId, validationFunction) {
+                const field = $('#' + fieldId);
+                const error = $('#' + errorId);
+                const isValid = validationFunction(field.val());
+
+                if (isValid) {
+                    field.removeClass('is-invalid').addClass('is-valid');
+                    error.hide();
+                } else {
+                    field.removeClass('is-valid').addClass('is-invalid');
+                    error.show();
+                }
+
+                return isValid;
+            }
+
+
+            function isNotEmpty(value) {
+                return value.trim().length > 0;
+            }
+
+            function isValidName(value) {
+                const nameRegex = /^[A-Za-z\s]+$/;
+                return nameRegex.test(value.trim());
+            }
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function isValidPassword(password) {
+                return password.length >= 6;
+            }
+
+            function isValidPhone(phone) {
+                const phoneRegex = /^[0-9]{10}$/;
+                return phoneRegex.test(phone.replace(/\D/g, ''));
+            }
+
+            function passwordsMatch(password, confirmPassword) {
+                return password === confirmPassword && password.length > 0;
+            }
+
+
+            $('#loginEmail').blur(function () {
+                validateField('loginEmail', 'loginEmailError', isValidEmail);
+            });
+
+            $('#loginPassword').blur(function () {
+                validateField('loginPassword', 'loginPasswordError', isNotEmpty);
+            });
+
+            $('#hotelName').blur(function () {
+                validateField('hotelName', 'hotelNameError', isNotEmpty);
+            });
+
+            $('#yourName').blur(function () {
+                validateField('yourName', 'yourNameError', isValidName);
+            });
+
+            $('#email').blur(function () {
+                validateField('email', 'emailError', isValidEmail);
+            });
+
+            $('#phoneNumber').blur(function () {
+                validateField('phoneNumber', 'phoneNumberError', isValidPhone);
+            });
+
+            $('#newPassword').blur(function () {
+                validateField('newPassword', 'newPasswordError', isValidPassword);
+                if ($('#confirmPassword').val()) {
+                    $('#confirmPassword').trigger('blur');
+                }
+            });
+
+            $('#confirmPassword').blur(function () {
+                const newPassword = $('#newPassword').val();
+                const confirmPassword = $('#confirmPassword').val();
+                validateField('confirmPassword', 'confirmPasswordError',
+                    () => passwordsMatch(newPassword, confirmPassword));
+            });
+
+
+            $('#loginFormElement').submit(async function (e) {
+                e.preventDefault();
+
+                const email = $('#loginEmail').val();
+                const password = $('#loginPassword').val();
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // alert('Login successful! Welcome back, ' + data.user.name);
+                        localStorage.setItem('currentUser', JSON.stringify(data.user)); // Save user session
+                        window.location.href = "home.html";
+                    } else {
+                        alert(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Login failed. Please try again.');
+                }
+            });
+
+
+            $('#signupFormElement').submit(async function (e) {
+                e.preventDefault();
+
+                // Client-side basic validation
+                const hotelNameValid = validateField('hotelName', 'hotelNameError', isNotEmpty);
+                const yourNameValid = validateField('yourName', 'yourNameError', isValidName);
+                const emailValid = validateField('email', 'emailError', isValidEmail);
+                const phoneValid = validateField('phoneNumber', 'phoneNumberError', isValidPhone);
+                const passwordValid = validateField('newPassword', 'newPasswordError', isValidPassword);
+                const passwordsMatchValid = validateField('confirmPassword', 'confirmPasswordError',
+                    () => passwordsMatch($('#newPassword').val(), $('#confirmPassword').val()));
+
+                if (hotelNameValid && yourNameValid && emailValid && phoneValid && passwordValid && passwordsMatchValid) {
+
+                    const hotelName = $('#hotelName').val();
+                    const name = $('#yourName').val();
+                    const email = $('#email').val();
+                    const phone = $('#phoneNumber').val();
+                    const password = $('#newPassword').val();
+
+                    try {
+                        const response = await fetch('http://localhost:5000/api/signup', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ hotelName, name, email, phone, password })
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            //            alert('Account created successfully! Please login.');
+                            // Redirect to login page
+                            $('#showLogin').click();
+                        } else {
+                            alert(data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Signup failed. Please try again.');
+                    }
+                }
+            });
+
+
+            function clearErrors() {
+                $('.form-control, .form-select').removeClass('is-invalid is-valid');
+                $('.error').hide();
+            }
+
+
+            $('#phoneNumber').on('input', function () {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length <= 10) {
+                    $(this).val(value);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

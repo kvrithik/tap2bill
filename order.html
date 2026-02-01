@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoCounterBill - Order</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary-orange: #d2691e;
+            --primary-orange-dark: #d2691eeb;
+        }
+
+        body {
+            background-color: rgb(242, 240, 239);
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+        .custom-navbar {
+            background: #f5f5f5;
+            border-bottom: 2px solid #de604194;
+            padding: 20px 0;
+        }
+
+        .navbar-brand {
+            font-size: 30px;
+            font-weight: bold;
+            margin-left: 55px;
+            color: var(--primary-orange) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0 20px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-orange) !important;
+        }
+
+        .btn-sign-in {
+            background: var(--primary-orange);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+
+        .btn-sign-in:hover {
+            background: var(--primary-orange-dark);
+            color: rgb(232, 226, 226);
+        }
+
+        .main-container {
+            background: rgb(196, 122, 10);
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header-nav {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-name {
+            color: var(--primary-orange);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .nav-btn:not(.active) {
+            background: #6c757d;
+            color: white;
+        }
+
+        .nav-btn:not(.active):hover {
+            background: #5a6268;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .order-content {
+            padding: 30px;
+        }
+
+        .order-table {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 15px 0;
+            border-bottom: 2px solid #ea620eca;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 20px 0;
+            border-bottom: 1px solid #ea620eca;
+            align-items: center;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #333;
+            background: rgb(232, 215, 215);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .qty-btn:hover {
+            background: #333;
+            color: white;
+        }
+
+        .qty-display {
+            width: 40px;
+            height: 30px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: rgb(246, 246, 246);
+        }
+
+        .amount {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .summary-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ea620eca;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 18px;
+        }
+
+        .summary-row.total {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            border-top: 2px solid #ea620eca;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .pay-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 60px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
+
+        .pay-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 50px 30px;
+            color: #6c757d;
+        }
+
+        .empty-cart i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .back-to-menu {
+            background: var(--primary-orange);
+            color: rgb(186, 43, 43);
+            border: none;
+            padding: 12px 30px;
+            font-weight: bold;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .back-to-menu:hover {
+            background: var(--primary-orange-dark);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            .header-nav {
+                padding: 10px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 6px 15px;
+                font-size: 14px;
+            }
+
+            .hero-image {
+                height: 200px;
+            }
+
+            .order-content {
+                padding: 20px;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 1.5fr 1fr 1fr;
+                gap: 10px;
+            }
+
+            .item-name {
+                font-size: 16px;
+            }
+
+            .qty-btn,
+            .qty-display {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+
+            .amount {
+                font-size: 16px;
+            }
+
+            .summary-row {
+                font-size: 16px;
+            }
+
+            .summary-row.total {
+                font-size: 18px;
+            }
+
+            .pay-btn {
+                padding: 12px 40px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .table-header {
+                display: none;
+            }
+
+            .table-row {
+                background: #f8f9fa;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                padding: 20px;
+                border: none;
+            }
+
+            .item-name {
+                margin-bottom: 10px;
+            }
+
+            .quantity-controls {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid px-5">
+
+            <a class="navbar-brand" href="#">NoCounterBill</a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="offer.html">Offer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="order.html">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">Bookings</a>
+                    </li>
+                </ul>
+
+
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-sign-in me-3" href="home.html">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <img src="image/Screenshot_20250826_234243_Perplexity.jpg" alt="South Indian Food" class="hero-image">
+
+
+    <div class="order-content">
+        <div id="cart-items">
+            < <div class="table-header">
+                <div>Items</div>
+                <div style="text-align: center;">Qty</div>
+                <div style="text-align: center;">Amount</div>
+
+        </div>
+
+
+        <div class="table-row" data-item="plain-dosa" data-price="30.00">
+            <div class="item-name">Plain Dosa</div>
+            <div class="quantity-controls">
+                <div class="qty-btn minus-btn">-</div>
+                <div class="qty-display">1</div>
+                <div class="qty-btn plus-btn">+</div>
+            </div>
+            <div class="amount">₹30.00</div>
+        </div>
+
+        <div class="table-row" data-item="pav-bhaji" data-price="35.00">
+            <div class="item-name">Pav Bhaji</div>
+            <div class="quantity-controls">
+                <div class="qty-btn minus-btn">-</div>
+                <div class="qty-display">1</div>
+                <div class="qty-btn plus-btn">+</div>
+            </div>
+            <div class="amount">₹35.00</div>
+        </div>
+    </div>
+
+    < <div id="empty-cart" class="empty-cart" style="display: none;">
+        <i class="bi bi-cart-x"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add some delicious items from our menu!</p>
+        <a href="breakfast.html" class="back-to-menu">Browse Menu</a>
+        </div>
+
+
+        <div class="summary-section" id="order-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹65.00</span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%):</span>
+                <span id="gst">₹11.70</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="total">₹76.70</span>
+            </div>
+
+            <button class="pay-btn" onclick="proceedToPay()">PAY</button>
+        </div>
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+            let cart = [];
+
+            function loadCart() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                } else {
+                    cart = [];
+                }
+                updateDisplay();
+            }
+
+            function saveCart() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            function addEventListeners() {
+                document.querySelectorAll('.plus-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const row = this.closest('.table-row');
+                        const itemName = row.querySelector('.item-name').textContent;
+                        const cartItem = cart.find(item => item.name === itemName);
+
+                        if (cartItem) {
+                            cartItem.quantity++;
+                            saveCart();
+                            updateDisplay();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.minus-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const row = this.closest('.table-row');
+                        const itemName = row.querySelector('.item-name').textContent;
+                        const cartItem = cart.find(item => item.name === itemName);
+
+                        if (cartItem && cartItem.quantity > 0) {
+                            cartItem.quantity--;
+                            if (cartItem.quantity === 0) {
+                                cart = cart.filter(item => item.name !== itemName);
+                            }
+                            saveCart();
+                            updateDisplay();
+                        }
+                    });
+                });
+            }
+
+            function updateDisplay() {
+                const cartItemsDiv = document.getElementById('cart-items');
+                const emptyCartDiv = document.getElementById('empty-cart');
+                const summaryDiv = document.getElementById('order-summary');
+
+                if (cart.length === 0) {
+                    cartItemsDiv.style.display = 'none';
+                    summaryDiv.style.display = 'none';
+                    emptyCartDiv.style.display = 'block';
+                    return;
+                }
+
+                cartItemsDiv.style.display = 'block';
+                summaryDiv.style.display = 'block';
+                emptyCartDiv.style.display = 'none';
+
+                // Clear existing rows except header
+                const existingRows = cartItemsDiv.querySelectorAll('.table-row');
+                existingRows.forEach(row => row.remove());
+
+                cart.forEach(item => {
+                    const rowHtml = `
+                    <div class="table-row" data-item="${item.name.toLowerCase().replace(' ', '-')}" data-price="${item.price}">
+                        <div class="item-name">${item.name}</div>
+                        <div class="quantity-controls">
+                            <div class="qty-btn minus-btn">-</div>
+                            <div class="qty-display">${item.quantity}</div>
+                            <div class="qty-btn plus-btn">+</div>
+                        </div>
+                        <div class="amount">₹${(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                `;
+                    cartItemsDiv.insertAdjacentHTML('beforeend', rowHtml);
+                });
+
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const gstAmount = subtotal * 0.18;
+
+                // Calculate Discount
+                let discountAmount = 0;
+                let activeOffer = null;
+                try {
+                    activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
+                } catch (e) { console.error(e); }
+
+                let discountRowHtml = '';
+                if (activeOffer && activeOffer.percent) {
+                    discountAmount = subtotal * (activeOffer.percent / 100);
+                    discountRowHtml = `
+                        <div class="summary-row" style="color: #28a745;">
+                            <span>Discount (${activeOffer.percent}% - ${activeOffer.code}):</span>
+                            <span>-₹${discountAmount.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+
+                const total = subtotal + gstAmount - discountAmount;
+
+                // Update Summary HTML
+                // We'll rebuild the standard rows to insert discount correctly
+                summaryDiv.innerHTML = `
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₹${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>GST (18%):</span>
+                        <span id="gst">₹${gstAmount.toFixed(2)}</span>
+                    </div>
+                    ${discountRowHtml}
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">₹${total.toFixed(2)}</span>
+                    </div>
+                    <button class="pay-btn" onclick="proceedToPay()">PAY</button>
+                `;
+
+                addEventListeners();
+            }
+
+            function addToCart(itemName, price) {
+                const existingItem = cart.find(item => item.name === itemName);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ name: itemName, price: price, quantity: 1 });
+                }
+                saveCart();
+                updateDisplay();
+            }
+
+            async function proceedToPay() {
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser) {
+                    alert('Please login to place an order');
+                    window.location.href = 'login-sign.html';
+                    return;
+                }
+
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const gstAmount = subtotal * 0.18;
+                let discountAmount = 0;
+                let activeOffer = null;
+                try {
+                    activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
+                } catch (e) { console.error(e); }
+
+                if (activeOffer && activeOffer.percent) {
+                    discountAmount = subtotal * (activeOffer.percent / 100);
+                }
+
+                const total = subtotal + gstAmount - discountAmount;
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/orders', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            userId: currentUser.id,
+                            items: cart,
+                            totalAmount: total
+                        })
+                    }); // fixed missing closing parenthesis
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert('Payment successful! Redirecting to bill...');
+
+                        // Save current order details for bill page
+                        const currentOrder = {
+                            orderId: data.orderId,
+                            items: cart,
+                            totalAmount: total
+                        };
+                        localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
+
+                        // Clear cart and offers
+                        cart = [];
+                        saveCart();
+                        localStorage.removeItem('activeOffer');
+
+                        window.location.href = 'bill.html';
+                    } else {
+                        alert('Order failed: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Error placing order:', error);
+                    alert('Network error. Please try again.');
+                }
+            }
+
+
+
+            function checkUrlParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const item = urlParams.get('item');
+                const price = urlParams.get('price');
+
+                if (item && price) {
+                    addToCart(item, parseFloat(price));
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                loadCart();
+                checkUrlParams();
+            });
+
+            // Make functions available globally for external calls
+            window.addToCart = addToCart;
+        </script>
+</body>
+
+</html>

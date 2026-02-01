@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoCounterBill</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+  <!-- Font Awesome CSS (solid icons) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-orange: #d2691e;
+      --primary-orange-dark: #d2691eeb;
+      --green-gradient-start: #2c5530;
+      --green-gradient-end: #1a3a1e;
+    }
+
+    .custom-navbar {
+      background: #f5f5f5;
+      border-bottom: 2px solid #de604194;
+      padding: 20px 0;
+    }
+
+    .navbar-brand {
+      font-size: 30px;
+      font-weight: bold;
+      margin-left: 55px;
+      font-family: Cursive;
+      color: var(--primary-orange) !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: #333 !important;
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 20px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-orange) !important;
+    }
+
+    .btn-sign-in {
+      background: var(--primary-orange);
+      border: none;
+      color: white;
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-weight: bold;
+    }
+
+    .btn-sign-in:hover {
+      background: var(--primary-orange-dark);
+      color: rgb(232, 226, 226);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .magnifying-glass {
+      width: 40px;
+      height: 40px;
+      background-color: #90c695;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+    }
+
+    .menu-item {
+      background-color: white;
+      border: 3px solid #ff6b35;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-name {
+      font-weight: bold;
+      font-size: 1.90rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .item-description {
+      color: #666;
+      font-size: 1.20rem;
+    }
+
+    .item-price {
+      font-weight: bold;
+      font-size: 1.60rem;
+      color: #333;
+    }
+
+    /* Responsive text sizes */
+    @media (max-width: 768px) {
+      .item-name {
+        font-size: 1rem;
+      }
+
+      .item-description {
+        font-size: 0.8rem;
+      }
+
+      .item-price {
+        font-size: 0.9rem;
+      }
+
+      .btn-add {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .item-name {
+        font-size: 0.95rem;
+      }
+
+      .item-description {
+        font-size: 0.75rem;
+      }
+
+      .item-price {
+        font-size: 0.85rem;
+      }
+
+      .menu-item {
+        padding: 10px;
+      }
+    }
+
+    .btn-add {
+      background-color: #f8f9fa;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      width: 35px;
+      height: 35px;
+      min-width: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-add:hover {
+      background-color: #ff6b35;
+      border-color: #ff6b35;
+      color: white;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-item img {
+      width: 150px;
+      /* fixed width */
+      height: 80px;
+      /* fixed height */
+      object-fit: cover;
+      /* crop nicely */
+      border-radius: 9px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid px-5">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">NoCounterBill</a>
+
+      <!-- Mobile toggle button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="offer.html">Offer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="order.html">Order</a>
+          </li>
+        </ul>
+
+        <!-- Right side button -->
+        <div class="d-flex align-items-center">
+          <a class="btn btn-sign-in me-3" href="home.html">Home</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-4">
+    <!-- Section Title -->
+    <div class="d-flex align-items-center mb-4">
+      <h2 class="section-title mb-0">Snacks</h2>
+      <div class="magnifying-glass">
+        <i class="fas fa-search text-white"></i>
+      </div>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-10">
+
+        <!-- Samosa -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/Samosa.png" alt="Samosa" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Samosa </div>
+              <div class="item-description">Potatoes, peas, or meat, served with chutney</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹20.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!--Vada Pav -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/Vada-Pav.png" alt="Vada Pav" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Vada Pav</div>
+              <div class="item-description">Bun with chutneys</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹25.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- chicken puff-->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/chicken puff.png" alt="chicken puf" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Chicken puff</div>
+              <div class="item-description">Buttery puff pastry filled with spiced chicken</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹20.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- veg puff -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/veg-puff.png" alt="veg puff" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Veg puff</div>
+              <div class="item-description">Vegetable stuffing</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹18.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- masala egg bun -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/masala egg bun.png" alt="masala egg bun" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name"> Masala Egg Bun</div>
+              <div class="item-description">Egg-Chopped onions-Chopped Tomatoes</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹40.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+         <!-- chicken burger -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/chicken burger.png" alt="chicken burger" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Chicken Burger</div>
+              <div class="item-description">chicken patty-bun-toppings and sauces</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹60.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+       
+        
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Add functionality to the plus buttons
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        // Clean price string (remove ₹ and whitespace)
+        const cleanPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
+        cart.push({ name: name, price: cleanPrice, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Add functionality to the plus buttons
+    document.querySelectorAll('.btn-add').forEach(button => {
+      button.addEventListener('click', function () {
+        // Add item to cart logic here
+        const menuItem = this.closest('.menu-item');
+        const name = menuItem.querySelector('.item-name').textContent.trim();
+        const price = menuItem.querySelector('.item-price').textContent.trim();
+
+        addToCart(name, price);
+
+        this.innerHTML = '<i class="fas fa-check"></i>';
+        this.style.backgroundColor = '#28a745';
+        this.style.borderColor = '#28a745';
+        this.style.color = 'white';
+
+        // Reset after 1 second
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-plus"></i>';
+          this.style.backgroundColor = '#f8f9fa';
+          this.style.borderColor = '#ccc';
+          this.style.color = '#333';
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+
+</html>

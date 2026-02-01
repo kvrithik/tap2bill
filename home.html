@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoCounterBill</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary-orange: #d2691e;
+            --primary-orange-dark: #d2691eeb;
+            --green-gradient-start: #2c5530;
+            --green-gradient-end: #1a3a1e;
+        }
+
+        .custom-navbar {
+            background: #f5f5f5;
+            border-bottom: 2px solid #de604194;
+            padding: 20px 0;
+        }
+
+        .navbar-brand {
+            font-size: 30px;
+            font-weight: bold;
+            margin-left: 55px;
+            font-family: Cursive;
+            color: var(--primary-orange) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-orange) !important;
+        }
+
+        .btn-sign-in {
+            background: var(--primary-orange);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+
+        .btn-sign-in:hover {
+            background: var(--primary-orange-dark);
+            color: rgb(232, 226, 226);
+        }
+
+        .menu-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-card-body img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .menu-label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-orange {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 25px;
+            font-weight: bold;
+            margin-top: 11px;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-orange:hover {
+            background: var(--primary-orange-dark);
+            color: white;
+        }
+
+        .bestsellers-title {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            font-weight: bold;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .bestsellers-title::before {
+            content: '👑';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+
+        .bestsellers-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-orange);
+            border-radius: 2px;
+        }
+
+        .bestseller-card {
+            background: linear-gradient(135deg, var(--green-gradient-start) 0%, var(--green-gradient-end) 100%);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin: 20px;
+        }
+
+        .bestseller-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .bestseller-card:active {
+            transform: translateY(0px) scale(0.98);
+        }
+
+        .bestseller-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e4eded;
+        }
+
+        .bestseller-desc {
+            font-size: 16px;
+            color: #f3eded;
+            font-weight: normal;
+        }
+
+        .btn-view {
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view:hover {
+            background: white;
+            color: var(--green-gradient-start);
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(228, 47, 47, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .slide1 {
+            background: linear-gradient(#db5a0f);
+        }
+
+        .slide2 {
+            background: linear-gradient(135deg, #5b1fb7, #5b86e5);
+        }
+
+        .slide3 {
+            background: linear-gradient(135deg, #56ab2f, #a8e063);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .footer-section-title {
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .terms-text {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            background: #333;
+            color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .social-media-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .social-icon.instagram:hover {
+            background: #e4405f;
+        }
+
+        .social-icon.facebook:hover {
+            background: #1877f2;
+        }
+
+        .social-icon.youtube:hover {
+            background: #ff0000;
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.05);
+            color: #666;
+            text-align: left;
+            padding: 15px 0;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 4px 8px;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                margin-left: 20px;
+                font-size: 24px;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0 10px;
+                font-size: 16px;
+            }
+
+            .bestsellers-title {
+                font-size: 2rem;
+            }
+
+            .bestseller-card {
+                margin: 10px 0;
+            }
+
+            .bestseller-desc {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                margin-left: 10px;
+                font-size: 20px;
+            }
+
+            .bestsellers-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand" href="#">
+                NoCounterBill</a>
+
+            <!--mobile three line -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="offer.html">Offer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="order.html">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">Bookings</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <a href="login-sign.html" id="signInButton" class="btn btn-sign-in me-3">Sign In</a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="breakfast">
+                    <div class="menu-card-body">
+                        <img src="image/Screenshot_20250826_234243_Perplexity.jpg" alt="Breakfast">
+                    </div>
+                    <a class="btn btn-orange" href="breakfast.html">Order Now</a>
+                    <div class="menu-label">Breakfast</div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="lunch">
+                    <div class="menu-card-body">
+                        <img src="image/image-1.png" alt="Lunch">
+                    </div>
+                    <a class="btn btn-orange" href="lunch.html">Order Now</a>
+                    <div class="menu-label">Lunch</div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="dinner">
+                    <div class="menu-card-body">
+                        <img src="image/image-3.png" alt="Dinner">
+                    </div>
+                    <a class="btn btn-orange" href="dinner.html">Order Now</a>
+                    <div class="menu-label">Dinner</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="drinks">
+                    <div class="menu-card-body">
+                        <img src="image/image-4.png" alt="Hot Drinks">
+                    </div>
+                    <a class="btn btn-orange" href="hotdrink.html">Order Now</a>
+                    <div class="menu-label">Hot Drinks</div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="snacks1">
+                    <div class="menu-card-body">
+                        <img src="image/image-5.png" alt="Snacks">
+                    </div>
+                    <a class="btn btn-orange" href="snacks.html">Order Now</a>
+                    <div class="menu-label">Snacks</div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card menu-card" data-category="snacks2">
+                    <div class="menu-card-body">
+                        <img src="image/Screenshot_20250827_112726_Perplexity.jpg" alt="Fresh Juices">
+                    </div>
+                    <a class="btn btn-orange" href="juices.html">Order Now</a>
+                    <div class="menu-label">Fresh Juices</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bestsellers -->
+    <div class="container text-center mb-5">
+        <h2 class="bestsellers-title">Top 3 Bestsellers</h2>
+
+        <div id="bestsellerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active"><!--holds all slides.-->
+                    <div class="card bestseller-card mx-auto slide1" style="max-width: 1000px;">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 text-start">
+                                <h3 class="bestseller-title">Kal Dosa</h3>
+                                <p class="bestseller-desc">Dosa-Sambar-Chutney-Vada basket</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <a href="breakfast.html" class="btn btn-view">View</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="card bestseller-card mx-auto slide2" style="max-width: 1000px;">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 text-start">
+                                <h3 class="bestseller-title">Chicken Puffs</h3>
+                                <p class="bestseller-desc">Freshly baked crispy puffs</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <a href="breakfast.html" class="btn btn-view">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="card bestseller-card mx-auto slide3" style="max-width: 1000px;">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 text-start">
+                                <h3 class="bestseller-title">Tomato Rice</h3>
+                                <p class="bestseller-desc">Spicy tangy tomato rice special</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <a href="lunch.html" class="btn btn-view">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <h5 class="footer-section-title text-center">Terms and Conditions:</h5>
+                    <p class="terms-text">
+                        "By using NoCounterBill, you agree to the Terms & Conditions.
+                        Bookings depend on restaurant confirmation and availability.
+                        NoCounterBill only provides booking services, not food delivery."
+                    </p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-section-title">Contact Details:</h5>
+
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <span>support@nocounterbill.com</span>
+                    </div>
+
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <span>+91 12345 67890</span>
+                    </div>
+
+
+                    <div class="mt-4">
+                        <p class="social-media-title">Social Media Links:</p>
+                        <div class="social-links">
+                            <a href="#" class="social-icon instagram" title="Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon facebook" title="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="social-icon youtube" title="YouTube">
+                                <i class="bi bi-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            Copyright:<br>
+                            © 2025 NoCounterBill. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentUser = localStorage.getItem('currentUser');
+            const signInBtn = document.getElementById('signInButton');
+
+            if (currentUser && signInBtn) {
+                // User is logged in
+                const userObj = JSON.parse(currentUser);
+                signInBtn.textContent = 'Logout';
+                signInBtn.href = '#';
+
+                signInBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('currentUser');
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

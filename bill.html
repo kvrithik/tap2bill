@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Receipt - NoCounterBill</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .bill-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            color: #d2691e;
+            font-weight: bold;
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .total-section {
+            border-top: 2px dashed #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .btn-home {
+            background: #d2691e;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-home:hover {
+            background: #b55a19;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bill-container">
+        <div class="header">
+            <h2>NoCounterBill</h2>
+            <p>Order Receipt</p>
+            <p id="orderDate"></p>
+            <p id="orderId" style="font-size: 12px; color: #999;"></p>
+        </div>
+
+        <div id="itemsList" class="order-details">
+            <!-- Items will be injected here -->
+        </div>
+
+        <div class="total-section">
+            <div class="total-row">
+                <span>Total Amount:</span>
+                <span id="totalAmount">₹0.00</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for dining with us!</p>
+            <a href="home.html" class="btn-home">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentOrder = JSON.parse(localStorage.getItem('currentOrder'));
+
+            if (!currentOrder) {
+                document.querySelector('.bill-container').innerHTML = '<div class="text-center"><h3>No recent order found</h3><a href="home.html" class="btn-home">Go Home</a></div>';
+                return;
+            }
+
+            document.getElementById('orderDate').textContent = new Date().toLocaleString();
+            document.getElementById('orderId').textContent = 'Order ID: ' + (currentOrder.orderId || 'N/A');
+            document.getElementById('totalAmount').textContent = '₹' + parseFloat(currentOrder.totalAmount).toFixed(2);
+
+            const itemsList = document.getElementById('itemsList');
+            currentOrder.items.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemsList.appendChild(row);
+            });
+        });
+    </script>
+</body>
+
+</html>

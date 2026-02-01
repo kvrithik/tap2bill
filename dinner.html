@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoCounterBill</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-orange: #d2691e;
+      --primary-orange-dark: #d2691eeb;
+      --green-gradient-start: #2c5530;
+      --green-gradient-end: #1a3a1e;
+    }
+
+    .custom-navbar {
+      background: #f5f5f5;
+      border-bottom: 2px solid #de604194;
+      padding: 20px 0;
+    }
+
+    .navbar-brand {
+      font-size: 30px;
+      font-weight: bold;
+      margin-left: 55px;
+      color: var(--primary-orange) !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: #333 !important;
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 20px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-orange) !important;
+    }
+
+    .btn-sign-in {
+      background: var(--primary-orange);
+      border: none;
+      color: white;
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-weight: bold;
+    }
+
+    .btn-sign-in:hover {
+      background: var(--primary-orange-dark);
+      color: rgb(232, 226, 226);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .magnifying-glass {
+      width: 40px;
+      height: 40px;
+      background-color: #90c695;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+    }
+
+    .menu-item {
+      background-color: white;
+      border: 3px solid #ff6b35;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-name {
+      font-weight: bold;
+      font-size: 1.90rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .item-description {
+      color: #666;
+      font-size: 1.20rem;
+    }
+
+    .item-price {
+      font-weight: bold;
+      font-size: 1.60rem;
+      color: #333;
+    }
+
+    /* Responsive text sizes */
+    @media (max-width: 768px) {
+      .item-name {
+        font-size: 1rem;
+      }
+
+      .item-description {
+        font-size: 0.8rem;
+      }
+
+      .item-price {
+        font-size: 0.9rem;
+      }
+
+      .btn-add {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .item-name {
+        font-size: 0.95rem;
+      }
+
+      .item-description {
+        font-size: 0.75rem;
+      }
+
+      .item-price {
+        font-size: 0.85rem;
+      }
+
+      .menu-item {
+        padding: 10px;
+      }
+    }
+
+    .btn-add {
+      background-color: #f8f9fa;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      width: 35px;
+      height: 35px;
+      min-width: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-add:hover {
+      background-color: #ff6b35;
+      border-color: #ff6b35;
+      color: white;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-item img {
+      width: 150px;
+      /* fixed width */
+      height: 80px;
+      /* fixed height */
+      object-fit: cover;
+      /* crop nicely */
+      border-radius: 9px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid px-5">
+      <a class="navbar-brand" href="#">NoCounterBill</a>
+
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="offer.html">Offer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="order.html">Order</a>
+          </li>
+        </ul>
+
+
+        <div class="d-flex align-items-center">
+          <a class="btn btn-sign-in me-3" href="home.html">Home</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-4">
+
+    <div class="d-flex align-items-center mb-4">
+      <h2 class="section-title mb-0">Dinner</h2>
+      <div class="magnifying-glass">
+        <i class="fas fa-search text-white"></i>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-10">
+
+         <!-- chicken fried rice -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/Chicken Fried Rice.png" alt="chicken fried rice" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Chicken Fried Rice</div>
+              <div class="item-description">Onion Raita-Chicken Chettinad Gravy</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹140.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plain Dosa -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/plain dosa).jpg" alt="Plain Dosa" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Plain Dosa</div>
+              <div class="item-description">Sambar-chutney</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹28.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kal Dosa -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/kal dosa.jpg" alt="Kal Dosa" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Kal Dosa</div>
+              <div class="item-description">Sambar-chutney-vada basket</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹37.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- plain chapati -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/Chapati.png" alt=" plain chapati" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Plain Chapati</div>
+              <div class="item-description">Onion Raita-Mixed Veg Curry</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹36.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Omelet -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/omelet.jpg" alt="Omelet" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Omelet</div>
+              <div class="item-description">Tomato sauce</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹15.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- egg rice  -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/egg rice.png" alt="egg rice" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Egg  Fried Rice</div>
+              <div class="item-description">Onion Raita-Panner Gravy</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹110.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Idly -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/idly.jpg" alt="Idly" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Idly</div>
+              <div class="item-description">Sambar-chutney-vada basket</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹25.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- parotta -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/parotta.png" alt="parotta" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Parotta</div>
+              <div class="item-description">chili- salna</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹30.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+         <!-- poori -->
+        <div class="menu-item">
+          <div class="row align-items-center g-2">
+            <div class="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+              <img src="image/poori.png" alt="poori" class="img-fluid">
+            </div>
+            <div class="col-5 col-sm-6">
+              <div class="item-name">Poori</div>
+              <div class="item-description">Mixed Vegetable Kurma/Sagu</div>
+            </div>
+            <div class="col-3 col-sm-3 text-center">
+              <div class="item-price">₹60.00</div>
+            </div>
+            <div class="col-1 col-sm-1 d-flex justify-content-center">
+              <button class="btn btn-add">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        // Clean price string (remove ₹ and whitespace)
+        const cleanPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
+        cart.push({ name: name, price: cleanPrice, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    document.querySelectorAll('.btn-add').forEach(button => {
+      button.addEventListener('click', function () {
+
+        const menuItem = this.closest('.menu-item');
+        const name = menuItem.querySelector('.item-name').textContent.trim();
+        const price = menuItem.querySelector('.item-price').textContent.trim();
+
+        addToCart(name, price);
+
+        this.innerHTML = '<i class="fas fa-check"></i>';
+        this.style.backgroundColor = '#28a745';
+        this.style.borderColor = '#28a745';
+        this.style.color = 'white';
+
+
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-plus"></i>';
+          this.style.backgroundColor = '#f8f9fa';
+          this.style.borderColor = '#ccc';
+          this.style.color = '#333';
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+
+</html>
