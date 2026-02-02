@@ -308,7 +308,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:5000/api/orders/${currentUser.id}`);
+                const response = await fetch(`/api/orders/${currentUser.id}`);
                 const data = await response.json();
 
                 const ordersList = document.getElementById('ordersList');
