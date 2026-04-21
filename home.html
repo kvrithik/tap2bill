@@ -4,356 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoCounterBill</title>
+    <title>Tap2Bill - Skip the line, order online!</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary-orange: #d2691e;
-            --primary-orange-dark: #d2691eeb;
-            --green-gradient-start: #2c5530;
-            --green-gradient-end: #1a3a1e;
+            --primary-orange-dark: #b85b19;
+            --soft-bg: #fffbf7;
         }
 
-        .custom-navbar {
-            background: #f5f5f5;
-            border-bottom: 2px solid #de604194;
-            padding: 20px 0;
+        body {
+            background-color: var(--soft-bg);
+            font-family: 'Poppins', sans-serif;
         }
 
+        /* --- Navbar Styles --- */
         .navbar-brand {
-            font-size: 30px;
-            font-weight: bold;
-            margin-left: 55px;
-            font-family: Cursive;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary-orange) !important;
+            letter-spacing: -0.5px;
         }
 
         .navbar-nav .nav-link {
-            color: #333 !important;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0 20px;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #495057 !important;
+            margin: 0 10px;
         }
 
         .navbar-nav .nav-link:hover {
             color: var(--primary-orange) !important;
         }
 
-        .btn-sign-in {
-            background: var(--primary-orange);
-            border: none;
-            color: white;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: bold;
-        }
-
-        .btn-sign-in:hover {
-            background: var(--primary-orange-dark);
-            color: rgb(232, 226, 226);
-        }
-
-        .menu-card {
-            border: none;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-card-body img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        .menu-label {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
         .btn-orange {
-            background: var(--primary-orange);
+            background-color: var(--primary-orange);
             color: white;
             border: none;
-            border-radius: 25px;
-            padding: 8px 25px;
-            font-weight: bold;
-            margin-top: 11px;
-            transition: background 0.3s ease;
-            text-decoration: none;
+            transition: all 0.2s ease;
         }
 
         .btn-orange:hover {
-            background: var(--primary-orange-dark);
+            background-color: var(--primary-orange-dark);
             color: white;
         }
 
-        .bestsellers-title {
-            font-size: 2.5rem;
+        /* --- Custom Hero Section --- */
+        .hero-section {
+            background: linear-gradient(135deg, #fffcf9 0%, #ffedd9 100%);
+            border-bottom: 1px solid #fce2c4;
+            margin-bottom: 3rem;
+        }
+
+        .hero-bg-text {
             color: var(--primary-orange);
             font-weight: bold;
-            position: relative;
-            margin-bottom: 2rem;
         }
 
-        .bestsellers-title::before {
-            content: '👑';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-        }
-
-        .bestsellers-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--primary-orange);
-            border-radius: 2px;
-        }
-
-        .bestseller-card {
-            background: linear-gradient(135deg, var(--green-gradient-start) 0%, var(--green-gradient-end) 100%);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        /* --- Menu Cards --- */
+        .menu-card {
             border: none;
-            margin: 20px;
+            border-top: 4px solid var(--primary-orange);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .bestseller-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(210, 105, 30, 0.15) !important;
         }
 
-        .bestseller-card:active {
-            transform: translateY(0px) scale(0.98);
+        .menu-card img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: calc(0.375rem - 1px);
+            border-top-right-radius: calc(0.375rem - 1px);
         }
 
-        .bestseller-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #e4eded;
-        }
-
-        .bestseller-desc {
-            font-size: 16px;
-            color: #f3eded;
-            font-weight: normal;
-        }
-
-        .btn-view {
-            border: 2px solid white;
-            background: transparent;
-            color: white;
-            border-radius: 25px;
-            padding: 8px 20px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-view:hover {
-            background: white;
-            color: var(--green-gradient-start);
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color: rgba(228, 47, 47, 0.5);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
-
-        .slide1 {
-            background: linear-gradient(#db5a0f);
-        }
-
-        .slide2 {
-            background: linear-gradient(135deg, #5b1fb7, #5b86e5);
-        }
-
-        .slide3 {
-            background: linear-gradient(135deg, #56ab2f, #a8e063);
-        }
-
-        .footer {
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
-            color: #333;
-            padding: 40px 0 20px;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .footer-section-title {
-            color: #333;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .terms-text {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: justify;
-        }
-
-        .contact-item {
+        /* --- Trending Section (Simplified) --- */
+        .trending-card {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
             margin-bottom: 15px;
-            color: #333;
-            font-size: 0.95rem;
+            transition: box-shadow 0.2s;
+        }
+        
+        .trending-card:hover {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         }
 
-        .contact-icon {
-            width: 24px;
-            height: 24px;
-            background: #333;
-            color: white;
+        .trend-bar-track {
+            background-color: #e9ecef;
+            height: 8px;
             border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            flex-shrink: 0;
+            width: 100%;
+            margin-top: 5px;
         }
 
-        .social-media-title {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
+        .trend-bar-fill {
+            background-color: var(--primary-orange);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
         }
 
-        .social-links {
-            display: flex;
-            gap: 12px;
+        .rank-badge {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        /* --- Footer Styles --- */
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #dee2e6;
+            padding: 40px 0 20px;
+            margin-top: 40px;
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
-            background: #333;
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+            color: #495057;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.2s;
         }
 
         .social-icon:hover {
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .social-icon.instagram:hover {
-            background: #e4405f;
-        }
-
-        .social-icon.facebook:hover {
-            background: #1877f2;
-        }
-
-        .social-icon.youtube:hover {
-            background: #ff0000;
-        }
-
-        .footer-bottom {
-            background: rgba(0, 0, 0, 0.05);
-            color: #666;
-            text-align: left;
-            padding: 15px 0;
-            margin-top: 30px;
-            font-size: 0.8rem;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 4px 8px;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                margin-left: 20px;
-                font-size: 24px;
-            }
-
-            .navbar-nav .nav-link {
-                margin: 0 10px;
-                font-size: 16px;
-            }
-
-            .bestsellers-title {
-                font-size: 2rem;
-            }
-
-            .bestseller-card {
-                margin: 10px 0;
-            }
-
-            .bestseller-desc {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .navbar-brand {
-                margin-left: 10px;
-                font-size: 20px;
-            }
-
-            .bestsellers-title {
-                font-size: 1.8rem;
-            }
+            color: var(--primary-orange);
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
-        <div class="container-fluid px-5">
-            <a class="navbar-brand" href="#">
-                NoCounterBill</a>
+    <!-- ─── Navbar ─── -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Tap2Bill</a>
 
-            <!--mobile three line -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
                     </li>
@@ -367,223 +169,262 @@
                         <a class="nav-link" href="history.html">Bookings</a>
                     </li>
                 </ul>
-
-                <div class="d-flex align-items-center">
-                    <a href="login-sign.html" id="signInButton" class="btn btn-sign-in me-3">Sign In</a>
+                <div class="d-flex">
+                    <a href="login-sign.html" id="signInButton" class="btn btn-orange px-4 rounded-pill">Sign In</a>
                 </div>
-
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid p-4">
-        <div class="row g-4 mb-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="breakfast">
-                    <div class="menu-card-body">
-                        <img src="image/Screenshot_20250826_234243_Perplexity.jpg" alt="Breakfast">
+    <!-- ─── Hero Section ─── -->
+    <section class="hero-section py-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h1 class="display-4 fw-bold mb-3">Skip the line, <br><span class="hero-bg-text">taste the flavor.</span></h1>
+                    <p class="lead text-muted mb-4">Order ahead and enjoy your meals without standing at the counter. Hot, fresh, and ready when you are.</p>
+                    <a href="#menu-categories" class="btn btn-orange btn-lg px-5 rounded-pill shadow-sm">View Menu</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <!-- A simple food placeholder image using an existing image from the folder -->
+                    <img src="image/image-1.png" alt="Delicious Food" class="img-fluid rounded shadow" style="max-height: 350px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Main Menu Categories ─── -->
+    <div class="container mb-5" id="menu-categories">
+        <h2 class="text-center fw-bold mb-4">Our Menu</h2>
+        
+        <!-- Row 1 -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/Screenshot_20250826_234243_Perplexity.jpg" class="card-img-top" alt="Breakfast">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Breakfast</h5>
+                        <p class="card-text text-muted small">Start your day right with fresh traditional meals.</p>
+                        <a href="breakfast.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="breakfast.html">Order Now</a>
-                    <div class="menu-label">Breakfast</div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="lunch">
-                    <div class="menu-card-body">
-                        <img src="image/image-1.png" alt="Lunch">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/image-1.png" class="card-img-top" alt="Lunch">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Lunch</h5>
+                        <p class="card-text text-muted small">Hearty and fulfilling meals for your afternoon.</p>
+                        <a href="lunch.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="lunch.html">Order Now</a>
-                    <div class="menu-label">Lunch</div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="dinner">
-                    <div class="menu-card-body">
-                        <img src="image/image-3.png" alt="Dinner">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/image-3.png" class="card-img-top" alt="Dinner">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Dinner</h5>
+                        <p class="card-text text-muted small">Light to heavy dinners tailored for you.</p>
+                        <a href="dinner.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="dinner.html">Order Now</a>
-                    <div class="menu-label">Dinner</div>
                 </div>
             </div>
         </div>
 
-        <div class="row g-4 mb-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="drinks">
-                    <div class="menu-card-body">
-                        <img src="image/image-4.png" alt="Hot Drinks">
+        <!-- Row 2 -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/image-4.png" class="card-img-top" alt="Hot Drinks">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Hot Drinks</h5>
+                        <p class="card-text text-muted small">Tea, Coffee, and more.</p>
+                        <a href="hotdrink.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="hotdrink.html">Order Now</a>
-                    <div class="menu-label">Hot Drinks</div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="snacks1">
-                    <div class="menu-card-body">
-                        <img src="image/image-5.png" alt="Snacks">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/image-5.png" class="card-img-top" alt="Snacks">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Snacks</h5>
+                        <p class="card-text text-muted small">Perfect quick bites.</p>
+                        <a href="snacks.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="snacks.html">Order Now</a>
-                    <div class="menu-label">Snacks</div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card menu-card" data-category="snacks2">
-                    <div class="menu-card-body">
-                        <img src="image/Screenshot_20250827_112726_Perplexity.jpg" alt="Fresh Juices">
+            <div class="col-md-4">
+                <div class="card menu-card shadow-sm h-100 text-center">
+                    <img src="image/Screenshot_20250827_112726_Perplexity.jpg" class="card-img-top" alt="Fresh Juices">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Fresh Juices</h5>
+                        <p class="card-text text-muted small">Refreshing cool drinks.</p>
+                        <a href="juices.html" class="btn btn-outline-dark rounded-pill px-4">Order Now</a>
                     </div>
-                    <a class="btn btn-orange" href="juices.html">Order Now</a>
-                    <div class="menu-label">Fresh Juices</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bestsellers -->
-    <div class="container text-center mb-5">
-        <h2 class="bestsellers-title">Top 3 Bestsellers</h2>
+    <hr class="container my-5 text-muted">
 
-        <div id="bestsellerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-            <div class="carousel-inner">
-
-                <div class="carousel-item active"><!--holds all slides.-->
-                    <div class="card bestseller-card mx-auto slide1" style="max-width: 1000px;">
-                        <div class="row align-items-center">
-                            <div class="col-md-8 text-start">
-                                <h3 class="bestseller-title">Kal Dosa</h3>
-                                <p class="bestseller-desc">Dosa-Sambar-Chutney-Vada basket</p>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <a href="breakfast.html" class="btn btn-view">View</a>
-                            </div>
-
+    <!-- ─── Active Insights: Trending & Recommended (Side-by-Side) ─── -->
+    <div class="container mb-5">
+        <div class="row g-4">
+            <!-- ─── Trending Now Section ─── -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 bg-white h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-bold mb-0">🔥 Trending Now</h3>
+                            <span class="badge bg-danger rounded-pill pulse-badge px-3 py-2">Live Updates</span>
                         </div>
-                    </div>
-                </div>
 
-                <div class="carousel-item">
-                    <div class="card bestseller-card mx-auto slide2" style="max-width: 1000px;">
-                        <div class="row align-items-center">
-                            <div class="col-md-8 text-start">
-                                <h3 class="bestseller-title">Chicken Puffs</h3>
-                                <p class="bestseller-desc">Freshly baked crispy puffs</p>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <a href="breakfast.html" class="btn btn-view">View</a>
-                            </div>
+                        <!-- Skeletons & Empty States -->
+                        <div id="trending-skeleton" class="text-center text-muted py-3">
+                            <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
+                            <span class="ms-2">Loading trends...</span>
                         </div>
-                    </div>
-                </div>
 
-                <div class="carousel-item">
-                    <div class="card bestseller-card mx-auto slide3" style="max-width: 1000px;">
-                        <div class="row align-items-center">
-                            <div class="col-md-8 text-start">
-                                <h3 class="bestseller-title">Tomato Rice</h3>
-                                <p class="bestseller-desc">Spicy tangy tomato rice special</p>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <a href="lunch.html" class="btn btn-view">View</a>
-                            </div>
+                        <div id="trending-empty" class="text-center py-4" style="display:none;">
+                            <p class="text-muted mb-0">No trending data yet. Place some orders!</p>
+                        </div>
+
+                        <!-- Target Container -->
+                        <div id="trending-cards" style="display:none;"></div>
+
+                        <!-- Footer info -->
+                        <div class="d-flex justify-content-between align-items-center mt-4 border-top pt-3">
+                            <small class="text-muted" id="trending-updated">Updating...</small>
+                            <small class="text-muted fw-bold" id="trending-countdown">⏱ 10:00</small>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- ─── Recommended For You Section ─── -->
+            <div class="col-lg-6" id="recommendation-container" style="display:none;">
+                <div class="card shadow-sm border-0 bg-white h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-bold mb-0 text-success">💡 Recommended</h3>
+                            <span class="badge bg-success rounded-pill px-3 py-2">For You</span>
+                        </div>
 
+                        <div id="recommendation-skeleton" class="text-center text-muted py-3">
+                            <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                            <span class="ms-2">Loading recommendations...</span>
+                        </div>
+
+                        <div id="recommendation-empty" class="text-center py-4" style="display:none;">
+                            <p id="recommendation-empty-msg" class="text-muted mb-0">Log in or order more for personal picks!</p>
+                        </div>
+
+                        <div id="recommendation-cards" style="display:none; flex-direction:column;"></div>
+
+                        <div class="mt-4 border-top pt-3 text-end">
+                            <small class="text-muted" id="recommendation-updated">AI Collaborative Filtering</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Bestsellers Carousel ─── -->
+    <div class="container mb-5 text-center">
+        <h2 class="fw-bold mb-4">Top 3 All-Time Favorites</h2>
+
+        <div id="bestsellerCarousel" class="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
+            <div class="carousel-inner bg-light">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="p-5 d-flex align-items-center justify-content-between">
+                        <div class="text-start">
+                            <h3 class="fw-bold text-dark">Kal Dosa</h3>
+                            <p class="text-muted mb-0">Dosa-Sambar-Chutney-Vada basket</p>
+                        </div>
+                        <a href="breakfast.html" class="btn btn-orange rounded-pill px-4">View</a>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="p-5 d-flex align-items-center justify-content-between">
+                        <div class="text-start">
+                            <h3 class="fw-bold text-dark">Chicken Puffs</h3>
+                            <p class="text-muted mb-0">Freshly baked crispy puffs</p>
+                        </div>
+                        <a href="breakfast.html" class="btn btn-orange rounded-pill px-4">View</a>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <div class="p-5 d-flex align-items-center justify-content-between">
+                        <div class="text-start">
+                            <h3 class="fw-bold text-dark">Tomato Rice</h3>
+                            <p class="text-muted mb-0">Spicy tangy tomato rice special</p>
+                        </div>
+                        <a href="lunch.html" class="btn btn-orange rounded-pill px-4">View</a>
+                    </div>
+                </div>
+            </div>
 
             <!-- Indicators -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
+            <div class="carousel-indicators" style="bottom: -5px;">
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="0" class="active bg-dark"></button>
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="1" class="bg-dark"></button>
+                <button type="button" data-bs-target="#bestsellerCarousel" data-bs-slide-to="2" class="bg-dark"></button>
             </div>
         </div>
     </div>
 
-    <hr class="my-5">
-
+    <!-- ─── Footer ─── -->
     <footer class="footer">
         <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-5 col-md-6 mb-4">
-                    <h5 class="footer-section-title text-center">Terms and Conditions:</h5>
-                    <p class="terms-text">
-                        "By using NoCounterBill, you agree to the Terms & Conditions.
-                        Bookings depend on restaurant confirmation and availability.
-                        NoCounterBill only provides booking services, not food delivery."
+            <div class="row">
+                <div class="col-lg-5 mb-4">
+                    <h5 class="fw-bold mb-3">Terms and Conditions</h5>
+                    <p class="text-muted small w-75">
+                        By using Tap2Bill, you agree to our Terms. Bookings depend on restaurant confirmation. We provide booking services, not direct delivery.
                     </p>
                 </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <h5 class="footer-section-title">Contact Details:</h5>
-
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <span>support@nocounterbill.com</span>
-                    </div>
-
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <span>+91 12345 67890</span>
-                    </div>
-
-
-                    <div class="mt-4">
-                        <p class="social-media-title">Social Media Links:</p>
-                        <div class="social-links">
-                            <a href="#" class="social-icon instagram" title="Instagram">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                            <a href="#" class="social-icon facebook" title="Facebook">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="#" class="social-icon youtube" title="YouTube">
-                                <i class="bi bi-youtube"></i>
-                            </a>
-                        </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="fw-bold mb-3">Contact Us</h5>
+                    <p class="mb-1 text-muted"><i class="bi bi-envelope-fill me-2"></i> support@Tap2Bill.com</p>
+                    <p class="mb-0 text-muted"><i class="bi bi-telephone-fill me-2"></i> +91 12345 67890</p>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="fw-bold mb-3">Follow Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="mb-0">
-                            Copyright:<br>
-                            © 2025 NoCounterBill. All rights reserved.
-                        </p>
-                    </div>
+            <div class="row mt-4 pt-3 border-top">
+                <div class="col-12 text-center text-muted small">
+                    &copy; 2025 Tap2Bill. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
-
+    <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ─── Original JS Logic ─── -->
     <script>
+        // ── Auth Logic ──
         document.addEventListener('DOMContentLoaded', function () {
             const currentUser = localStorage.getItem('currentUser');
             const signInBtn = document.getElementById('signInButton');
 
             if (currentUser && signInBtn) {
-                // User is logged in
-                const userObj = JSON.parse(currentUser);
                 signInBtn.textContent = 'Logout';
                 signInBtn.href = '#';
 
@@ -596,7 +437,129 @@
                 });
             }
         });
+
+        // ── Trending Logic ──
+        const RANK_EMOJIS = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+        const REFRESH_MS = 10 * 60 * 1000; // 5 minutes
+        let countdownSec = REFRESH_MS / 1000;
+        let countdownTimer;
+
+        async function fetchTrending() {
+            try {
+                const res = await fetch('/api/trending');
+                const data = await res.json();
+
+                document.getElementById('trending-skeleton').style.display = 'none';
+
+                if (!data.success || !data.trending || data.trending.length === 0) {
+                    document.getElementById('trending-empty').style.display = 'block';
+                    document.getElementById('trending-cards').style.display = 'none';
+                    return;
+                }
+
+                const container = document.getElementById('trending-cards');
+                container.style.display = 'block';
+                document.getElementById('trending-empty').style.display = 'none';
+
+                const maxScore = data.trending[0].score || 1;
+
+                container.innerHTML = data.trending.map((item, i) => {
+                    const barWidth = Math.round((item.score / maxScore) * 100);
+                    return `
+                        <div class="trending-card">
+                            <div class="d-flex align-items-center" style="width: 70%;">
+                                <div class="rank-badge">${RANK_EMOJIS[i] || '⭐'}</div>
+                                <div class="ms-3 w-100">
+                                    <div class="fw-bold text-dark text-truncate">${escapeHtml(item.name)}</div>
+                                    <div class="trend-bar-track">
+                                        <div class="trend-bar-fill" style="width:${barWidth}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end" style="width: 25%;">
+                                <div class="fw-bold" style="color:var(--primary-orange);">${item.totalOrders}</div>
+                                <small class="text-muted" style="font-size:0.7rem;">orders</small>
+                            </div>
+                        </div>`;
+                }).join('');
+
+                const updatedAt = new Date(data.lastUpdated);
+                document.getElementById('trending-updated').textContent = `Sync: ${updatedAt.toLocaleTimeString()}`;
+            } catch (err) {
+                console.error(err);
+                document.getElementById('trending-skeleton').style.display = 'none';
+                document.getElementById('trending-empty').style.display = 'block';
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function startCountdown() {
+            clearInterval(countdownTimer);
+            countdownSec = REFRESH_MS / 1000;
+
+            countdownTimer = setInterval(() => {
+                countdownSec--;
+                if (countdownSec <= 0) {
+                    countdownSec = REFRESH_MS / 1000;
+                    fetchTrending();
+                }
+                const m = String(Math.floor(countdownSec / 60)).padStart(2, '0');
+                const s = String(countdownSec % 60).padStart(2, '0');
+                document.getElementById('trending-countdown').textContent = `⏱ Next in ${m}:${s}`;
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchTrending();
+            startCountdown();
+            fetchRecommendations();
+        });
+
+        // ── Recommendation Logic ──
+        async function fetchRecommendations() {
+            try {
+                const currentUserStr = localStorage.getItem('currentUser');
+                if (!currentUserStr) {
+                    document.getElementById('recommendation-container').style.display = 'block';
+                    document.getElementById('recommendation-skeleton').style.display = 'none';
+                    document.getElementById('recommendation-empty').style.display = 'block';
+                    return;
+                }
+
+                const user = JSON.parse(currentUserStr);
+                const res = await fetch(`/api/recommendations/${user.id}`);
+                const data = await res.json();
+
+                document.getElementById('recommendation-container').style.display = 'block';
+                document.getElementById('recommendation-skeleton').style.display = 'none';
+
+                if (!data.success || !data.recommendations || data.recommendations.length === 0) {
+                    document.getElementById('recommendation-empty').style.display = 'block';
+                    document.getElementById('recommendation-cards').style.display = 'none';
+                    return;
+                }
+
+                const container = document.getElementById('recommendation-cards');
+                container.style.display = 'flex';
+                document.getElementById('recommendation-empty').style.display = 'none';
+
+                container.innerHTML = data.recommendations.map(item => `
+                    <div class="trending-card">
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-0 me-3">✨</h4>
+                            <div class="fw-bold text-dark text-truncate">${escapeHtml(item.name)}</div>
+                        </div>
+                        <a href="order.html?item=${encodeURIComponent(item.name)}&price=${item.price || 50}" class="btn btn-sm btn-outline-success rounded-pill px-3">Add</a>
+                    </div>`
+                ).join('');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('recommendation-container').style.display = 'none';
+            }
+        }
     </script>
 </body>
-
 </html>

@@ -4,178 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Orders - NoCounterBill</title>
+    <title>My Orders - Tap2Bill</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for stars -->
+    <!-- Font Awesome & Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <style>
         :root {
             --primary-orange: #d2691e;
-            --primary-orange-dark: #d2691eeb;
+            --primary-orange-dark: #b85b19;
+            --soft-bg: #fffbf7;
         }
 
-        .custom-navbar {
-            background: #f5f5f5;
-            border-bottom: 2px solid #de604194;
-            padding: 20px 0;
+        body {
+            background-color: var(--soft-bg);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
         }
 
+        /* --- Navbar Styles (Shared) --- */
         .navbar-brand {
-            font-family: Cursive;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary-orange) !important;
-            font-weight: bold;
-            font-size: 30px;
-            margin-left: 55px;
+            letter-spacing: -0.5px;
         }
 
         .navbar-nav .nav-link {
-            color: #333;
-            font-size: 18px;
-            font-weight: 500;
-            margin: 0 20px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #495057 !important;
+            margin: 0 10px;
         }
 
         .navbar-nav .nav-link:hover {
             color: var(--primary-orange) !important;
         }
 
-        .header-nav {
-            background: #f8f9fa;
-            padding: 15px 30px;
-            border-bottom: 1px solid #dee2e6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            padding: 8px 20px;
+        .btn-orange {
+            background-color: var(--primary-orange);
+            color: white;
             border: none;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .nav-btn.active {
-            background: var(--primary-orange);
+        .btn-orange:hover {
+            background-color: var(--primary-orange-dark);
             color: white;
         }
 
-        .nav-btn:not(.active) {
-            background: #6c757d;
-            color: white;
+        /* --- Order History Specifics --- */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3436;
+            margin: 40px 0 30px 0;
+            text-align: center;
         }
-
-        .nav-btn:not(.active):hover {
-            background: #5a6268;
-        }
-
 
         .order-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #d2691e;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border: none;
+            border-top: 4px solid var(--primary-orange);
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(210, 105, 30, 0.15);
         }
 
         .order-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f3f5;
         }
 
         .order-date {
-            color: #666;
-            font-size: 14px;
+            color: #6c757d;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .order-total {
-            font-weight: bold;
-            color: #d2691e;
-            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-orange);
+            font-size: 1.2rem;
         }
 
         .item-list {
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .item-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 15px;
-        }
-
-        .page-title {
-            color: #333;
-            margin: 30px 0;
-            font-weight: bold;
-        }
-
-        .btn-sign-in {
-            background: var(--primary-orange);
-            border: none;
-            color: white;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: bold;
-        }
-
-        .btn-sign-in:hover {
-            background: var(--primary-orange-dark);
-            color: rgb(232, 226, 226);
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #495057;
         }
 
         .order-actions {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #eee;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #f1f3f5;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: flex-end;
         }
 
         .btn-action {
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.2s;
         }
 
         .btn-view-bill {
-            background-color: #e9ecef;
+            background-color: #f8f9fa;
             color: #495057;
-            border: 1px solid #ced4da;
+            border: 1px solid #dee2e6;
         }
 
         .btn-view-bill:hover {
-            background-color: #dee2e6;
+            background-color: #e9ecef;
             color: #212529;
         }
 
         .btn-rate {
-            background-color: #fff3cd;
-            color: #856404;
+            background-color: #fff8e6;
+            color: #bfa11d;
             border: 1px solid #ffeeba;
         }
 
@@ -188,7 +159,7 @@
             display: flex;
             flex-direction: row-reverse;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
 
         .rating-stars input {
@@ -196,9 +167,9 @@
         }
 
         .rating-stars label {
-            color: #ddd;
+            color: #e9ecef;
             cursor: pointer;
-            padding: 0 5px;
+            padding: 0 8px;
             transition: color 0.2s;
         }
 
@@ -212,19 +183,17 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg custom-navbar">
-        <div class="container-fluid px-5">
+    <!-- ─── Shared Navbar ─── -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">Tap2Bill</a>
 
-            <a class="navbar-brand" href="#">NoCounterBill</a>
-
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
                     </li>
@@ -235,60 +204,54 @@
                         <a class="nav-link" href="order.html">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="history.html">Bookings</a>
+                        <a class="nav-link fw-bold" style="color:var(--primary-orange)!important;" href="history.html">Bookings</a>
                     </li>
                 </ul>
-
-
-                <div class="d-flex align-items-center">
-                    <a class="btn btn-sign-in me-3" href="home.html">Home</a>
+                <div class="d-flex">
+                    <a href="login-sign.html" id="signInButton" class="btn btn-orange px-4 rounded-pill">Sign In</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container">
-        <h2 class="page-title">My Orders</h2>
-        <div id="ordersList">
-            <div class="text-center mt-5">Loading orders...</div>
+    <div class="container pb-5">
+        <h2 class="page-title"><i class="fas fa-history me-3 text-muted"></i>My Orders</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8" id="ordersList">
+                <div class="text-center mt-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-3 text-muted">Loading orders...</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Rating Modal -->
     <div class="modal fade" id="ratingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title">Rate Your Meal</h5>
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title fw-bold">Rate Your Meal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p class="text-muted mb-4">How was your experience?</p>
 
                     <div class="rating-stars mb-4">
-                        <input type="radio" name="rating" id="star5" value="5"><label for="star5"><i
-                                class="fas fa-star"></i></label>
-                        <input type="radio" name="rating" id="star4" value="4"><label for="star4"><i
-                                class="fas fa-star"></i></label>
-                        <input type="radio" name="rating" id="star3" value="3"><label for="star3"><i
-                                class="fas fa-star"></i></label>
-                        <input type="radio" name="rating" id="star2" value="2"><label for="star2"><i
-                                class="fas fa-star"></i></label>
-                        <input type="radio" name="rating" id="star1" value="1"><label for="star1"><i
-                                class="fas fa-star"></i></label>
+                        <input type="radio" name="rating" id="star5" value="5"><label for="star5"><i class="fas fa-star"></i></label>
+                        <input type="radio" name="rating" id="star4" value="4"><label for="star4"><i class="fas fa-star"></i></label>
+                        <input type="radio" name="rating" id="star3" value="3"><label for="star3"><i class="fas fa-star"></i></label>
+                        <input type="radio" name="rating" id="star2" value="2"><label for="star2"><i class="fas fa-star"></i></label>
+                        <input type="radio" name="rating" id="star1" value="1"><label for="star1"><i class="fas fa-star"></i></label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="reviewComment"
-                            style="height: 100px"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="reviewComment" style="height: 100px; border-radius:10px;"></textarea>
                         <label for="reviewComment">Comments (Optional)</label>
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4"
-                        data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sign-in rounded-pill px-4" onclick="submitRating()">Submit
-                        Review</button>
+                <div class="modal-footer border-top-0 justify-content-center pb-4">
+                    <button type="button" class="btn btn-orange rounded-pill px-5" onclick="submitRating()">Submit Review</button>
                 </div>
             </div>
         </div>
@@ -299,11 +262,30 @@
         let currentOrderIdForRating = null;
 
         document.addEventListener('DOMContentLoaded', async () => {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const currentUserStr = localStorage.getItem('currentUser');
+            const signInBtn = document.getElementById('signInButton');
+
+            if (currentUserStr && signInBtn) {
+                signInBtn.textContent = 'Logout';
+                signInBtn.href = '#';
+                signInBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('currentUser');
+                        window.location.reload();
+                    }
+                });
+            }
+
+            const currentUser = JSON.parse(currentUserStr);
 
             if (!currentUser || !currentUser.id) {
-                alert('Please login to view history');
-                window.location.href = 'login-sign.html';
+                document.getElementById('ordersList').innerHTML = `
+                    <div class="text-center mt-5">
+                        <h4 class="text-muted">Please login to view history</h4>
+                        <a href="login-sign.html" class="btn btn-orange rounded-pill px-4 mt-3">Login Now</a>
+                    </div>
+                `;
                 return;
             }
 
@@ -316,24 +298,23 @@
 
                 if (data.success && data.orders.length > 0) {
                     data.orders.forEach(order => {
-                        const date = new Date(order.date).toLocaleString();
+                        const date = new Date(order.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
                         let itemsHtml = '';
                         order.items.forEach(item => {
                             itemsHtml += `
                                 <div class="item-row">
-                                    <span>${item.name} x ${item.quantity}</span>
-                                    <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                                    <span class="fw-medium">${item.name} <span class="text-muted">x ${item.quantity}</span></span>
+                                    <span class="fw-bold text-dark">₹${(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             `;
                         });
 
-                        // Store order data in a way we can retrieve it
                         const orderJson = JSON.stringify(order).replace(/"/g, '&quot;');
 
                         const card = `
                             <div class="order-card">
                                 <div class="order-header">
-                                    <span class="order-date">${date}</span>
+                                    <span class="order-date"><i class="far fa-calendar-alt me-2"></i>${date}</span>
                                     <span class="order-total">Total: ₹${parseFloat(order.totalAmount).toFixed(2)}</span>
                                 </div>
                                 <div class="item-list">
@@ -352,17 +333,21 @@
                         ordersList.insertAdjacentHTML('beforeend', card);
                     });
                 } else {
-                    ordersList.innerHTML = '<div class="text-center mt-5"><h3>No orders found</h3></div>';
+                    ordersList.innerHTML = `
+                        <div class="text-center mt-5 py-5 bg-white rounded shadow-sm border">
+                            <h3 class="fw-bold mt-3">No orders found</h3>
+                            <p class="text-muted">You haven't placed any orders yet.</p>
+                            <a href="home.html" class="btn btn-orange rounded-pill px-4 mt-2">Start Ordering</a>
+                        </div>
+                    `;
                 }
             } catch (error) {
                 console.error('Error fetching orders:', error);
-                document.getElementById('ordersList').innerHTML = '<div class="text-center text-danger">Error loading orders</div>';
+                document.getElementById('ordersList').innerHTML = '<div class="text-center text-danger py-5">Error loading orders. Please try again later.</div>';
             }
         });
 
         function viewBill(order) {
-            // Need to map structure to match what bill.html expects
-            // bill.html expects orderId, items, totalAmount
             const billData = {
                 orderId: order._id,
                 items: order.items,
@@ -374,11 +359,8 @@
 
         function openRatingModal(orderId) {
             currentOrderIdForRating = orderId;
-            // Reset form
             document.querySelectorAll('.rating-stars input').forEach(el => el.checked = false);
             document.getElementById('reviewComment').value = '';
-
-            // Show modal
             const myModal = new bootstrap.Modal(document.getElementById('ratingModal'));
             myModal.show();
         }
@@ -393,11 +375,8 @@
             }
 
             const rating = selectedRating.value;
-            // Here you would typically send this to the backend.
-            // For now, we'll just simulate success.
             console.log(`Submitting rating for Order ${currentOrderIdForRating}: ${rating} stars, Comment: ${comment}`);
 
-            // Close modal
             const modalEl = document.getElementById('ratingModal');
             const modal = bootstrap.Modal.getInstance(modalEl);
             modal.hide();
@@ -406,5 +385,4 @@
         }
     </script>
 </body>
-
 </html>

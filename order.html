@@ -4,204 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoCounterBill - Order</title>
+    <title>Tap2Bill - Order</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary-orange: #d2691e;
-            --primary-orange-dark: #d2691eeb;
+            --primary-orange-dark: #b85b19;
+            --soft-bg: #fffbf7;
         }
 
         body {
-            background-color: rgb(242, 240, 239);
-            padding: 0;
+            background-color: var(--soft-bg);
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-
-        .custom-navbar {
-            background: #f5f5f5;
-            border-bottom: 2px solid #de604194;
-            padding: 20px 0;
-        }
-
+        /* --- Navbar Styles (Shared) --- */
         .navbar-brand {
-            font-size: 30px;
-            font-weight: bold;
-            margin-left: 55px;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary-orange) !important;
+            letter-spacing: -0.5px;
         }
 
         .navbar-nav .nav-link {
-            color: #333 !important;
-            font-size: 18px;
-            font-weight: 500;
-            margin: 0 20px;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #495057 !important;
+            margin: 0 10px;
         }
 
         .navbar-nav .nav-link:hover {
             color: var(--primary-orange) !important;
         }
 
-        .btn-sign-in {
-            background: var(--primary-orange);
-            border: none;
+        .btn-orange {
+            background-color: var(--primary-orange);
             color: white;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: bold;
+            border: none;
+            transition: all 0.2s ease;
         }
 
-        .btn-sign-in:hover {
-            background: var(--primary-orange-dark);
-            color: rgb(232, 226, 226);
+        .btn-orange:hover {
+            background-color: var(--primary-orange-dark);
+            color: white;
         }
 
-        .main-container {
-            background: rgb(196, 122, 10);
+        /* --- Order/Cart Specifics --- */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3436;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .card-container {
+            background-color: white;
             border-radius: 15px;
-            margin: 20px auto;
-            max-width: 800px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .header-nav {
-            background: #f8f9fa;
-            padding: 15px 30px;
-            border-bottom: 1px solid #dee2e6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-name {
-            color: var(--primary-orange);
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn.active {
-            background: var(--primary-orange);
-            color: white;
-        }
-
-        .nav-btn:not(.active) {
-            background: #6c757d;
-            color: white;
-        }
-
-        .nav-btn:not(.active):hover {
-            background: #5a6268;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .order-content {
             padding: 30px;
-        }
-
-        .order-table {
-            width: 100%;
-            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-orange);
         }
 
         .table-header {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             padding: 15px 0;
-            border-bottom: 2px solid #ea620eca;
-            font-weight: bold;
-            font-size: 18px;
-            color: #333;
+            border-bottom: 2px solid #f1f3f5;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #495057;
         }
 
         .table-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             padding: 20px 0;
-            border-bottom: 1px solid #ea620eca;
+            border-bottom: 1px solid #f1f3f5;
             align-items: center;
         }
 
         .item-name {
-            font-size: 18px;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #333;
+            color: #2d3436;
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .qty-btn {
-            width: 30px;
-            height: 30px;
-            border: 2px solid #333;
-            background: rgb(232, 215, 215);
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: #fff3e6;
+            color: var(--primary-orange);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.2rem;
             transition: all 0.2s ease;
         }
 
         .qty-btn:hover {
-            background: #333;
+            background: var(--primary-orange);
             color: white;
         }
 
         .qty-display {
-            width: 40px;
-            height: 30px;
-            border: 2px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            background: rgb(246, 246, 246);
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 30px;
+            text-align: center;
         }
 
         .amount {
             text-align: center;
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3436;
         }
 
         .summary-section {
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #ea620eca;
+            padding-top: 25px;
+            border-top: 2px solid #f1f3f5;
         }
 
         .summary-row {
@@ -209,492 +151,395 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            font-size: 18px;
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 500;
         }
 
         .summary-row.total {
-            font-weight: bold;
-            font-size: 20px;
-            color: #333;
-            border-top: 2px solid #ea620eca;
-            padding-top: 15px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary-orange);
+            border-top: 2px dashed #f1f3f5;
+            padding-top: 20px;
             margin-top: 10px;
         }
 
         .pay-btn {
-            background: #007bff;
+            background-color: var(--primary-orange);
             color: white;
             border: none;
-            padding: 15px 60px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 25px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: block;
             margin: 30px auto 0;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(210, 105, 30, 0.3);
         }
 
         .pay-btn:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
+            background-color: var(--primary-orange-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(210, 105, 30, 0.4);
         }
 
         .empty-cart {
             text-align: center;
-            padding: 50px 30px;
+            padding: 60px 30px;
             color: #6c757d;
         }
 
         .empty-cart i {
-            font-size: 60px;
+            font-size: 5rem;
             margin-bottom: 20px;
-            opacity: 0.5;
+            color: #dee2e6;
         }
 
         .back-to-menu {
-            background: var(--primary-orange);
-            color: rgb(186, 43, 43);
-            border: none;
-            padding: 12px 30px;
-            font-weight: bold;
-            border-radius: 25px;
-            text-decoration: none;
             display: inline-block;
             margin-top: 20px;
-            transition: background 0.3s ease;
         }
 
-        .back-to-menu:hover {
-            background: var(--primary-orange-dark);
-            color: white;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .main-container {
-                margin: 10px;
-                border-radius: 10px;
-            }
-
-            .header-nav {
-                padding: 10px 20px;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .brand-name {
-                font-size: 20px;
-            }
-
-            .nav-btn {
-                padding: 6px 15px;
-                font-size: 14px;
-            }
-
-            .hero-image {
-                height: 200px;
-            }
-
-            .order-content {
-                padding: 20px;
-            }
-
-            .table-header,
-            .table-row {
+            .table-header, .table-row {
                 grid-template-columns: 1.5fr 1fr 1fr;
-                gap: 10px;
-            }
-
-            .item-name {
-                font-size: 16px;
-            }
-
-            .qty-btn,
-            .qty-display {
-                width: 25px;
-                height: 25px;
-                font-size: 14px;
-            }
-
-            .amount {
-                font-size: 16px;
-            }
-
-            .summary-row {
-                font-size: 16px;
-            }
-
-            .summary-row.total {
-                font-size: 18px;
-            }
-
-            .pay-btn {
-                padding: 12px 40px;
-                font-size: 16px;
             }
         }
 
         @media (max-width: 480px) {
-
-            .table-header,
-            .table-row {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 15px;
-            }
-
             .table-header {
                 display: none;
             }
-
             .table-row {
-                background: #f8f9fa;
+                grid-template-columns: 1fr;
+                text-align: center;
+                background: #fdfdfd;
+                border: 1px solid #f1f3f5;
                 border-radius: 10px;
                 margin-bottom: 15px;
                 padding: 20px;
-                border: none;
             }
-
-            .item-name {
-                margin-bottom: 10px;
-            }
-
-            .quantity-controls {
-                margin-bottom: 10px;
-            }
+            .item-name { margin-bottom: 10px; }
+            .quantity-controls { margin-bottom: 15px; }
         }
     </style>
 </head>
 
 <body>
+    <!-- ─── Shared Navbar ─── -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">Tap2Bill</a>
 
-    <nav class="navbar navbar-expand-lg custom-navbar">
-        <div class="container-fluid px-5">
-
-            <a class="navbar-brand" href="#">NoCounterBill</a>
-
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="offer.html">Offer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="order.html">Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="history.html">Bookings</a>
-                    </li>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="offer.html">Offer</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold" style="color:var(--primary-orange)!important;" href="order.html">Order</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">Bookings</a></li>
                 </ul>
-
-
-                <div class="d-flex align-items-center">
-                    <a class="btn btn-sign-in me-3" href="home.html">Home</a>
+                <div class="d-flex">
+                    <a href="login-sign.html" id="signInButton" class="btn btn-orange px-4 rounded-pill">Sign In</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- ─── Main Content ─── -->
+    <div class="container pb-5 pt-3">
+        <h1 class="page-title"><i class="bi bi-cart3 me-3"></i>Your Order Cart</h1>
 
-    <img src="image/Screenshot_20250826_234243_Perplexity.jpg" alt="South Indian Food" class="hero-image">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card-container">
+                    
+                    <div id="cart-items" style="display: none;">
+                        <div class="table-header">
+                            <div>Item</div>
+                            <div style="text-align: center;">Quantity</div>
+                            <div style="text-align: center;">Price</div>
+                        </div>
+                        <!-- Dynamic items injected here via JS -->
+                    </div>
 
+                    <div id="empty-cart" class="empty-cart">
+                        <i class="bi bi-cart-x"></i>
+                        <h3 class="fw-bold text-dark mt-3">Your cart is empty</h3>
+                        <p>Add some delicious items from our menu!</p>
+                        <a href="home.html" class="btn btn-orange rounded-pill px-4 py-2 back-to-menu">Browse Menu</a>
+                    </div>
 
-    <div class="order-content">
-        <div id="cart-items">
-            < <div class="table-header">
-                <div>Items</div>
-                <div style="text-align: center;">Qty</div>
-                <div style="text-align: center;">Amount</div>
+                    <div id="order-summary" class="summary-section" style="display: none;">
+                        <!-- Dynamic summary injected here via JS -->
+                    </div>
 
-        </div>
-
-
-        <div class="table-row" data-item="plain-dosa" data-price="30.00">
-            <div class="item-name">Plain Dosa</div>
-            <div class="quantity-controls">
-                <div class="qty-btn minus-btn">-</div>
-                <div class="qty-display">1</div>
-                <div class="qty-btn plus-btn">+</div>
+                </div>
             </div>
-            <div class="amount">₹30.00</div>
-        </div>
-
-        <div class="table-row" data-item="pav-bhaji" data-price="35.00">
-            <div class="item-name">Pav Bhaji</div>
-            <div class="quantity-controls">
-                <div class="qty-btn minus-btn">-</div>
-                <div class="qty-display">1</div>
-                <div class="qty-btn plus-btn">+</div>
-            </div>
-            <div class="amount">₹35.00</div>
         </div>
     </div>
 
-    < <div id="empty-cart" class="empty-cart" style="display: none;">
-        <i class="bi bi-cart-x"></i>
-        <h3>Your cart is empty</h3>
-        <p>Add some delicious items from our menu!</p>
-        <a href="breakfast.html" class="back-to-menu">Browse Menu</a>
-        </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-        <div class="summary-section" id="order-summary">
-            <div class="summary-row">
-                <span>Subtotal:</span>
-                <span id="subtotal">₹65.00</span>
-            </div>
-            <div class="summary-row">
-                <span>GST (18%):</span>
-                <span id="gst">₹11.70</span>
-            </div>
-            <div class="summary-row total">
-                <span>Total:</span>
-                <span id="total">₹76.70</span>
-            </div>
+    <!-- Original JS logic for cart -->
+    <script>
+        let cart = [];
 
-            <button class="pay-btn" onclick="proceedToPay()">PAY</button>
-        </div>
-        </div>
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-        <script>
-            let cart = [];
-
-            function loadCart() {
-                const savedCart = localStorage.getItem('cart');
-                if (savedCart) {
-                    cart = JSON.parse(savedCart);
-                } else {
-                    cart = [];
-                }
-                updateDisplay();
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            } else {
+                cart = [];
             }
+            updateDisplay();
+        }
 
-            function saveCart() {
-                localStorage.setItem('cart', JSON.stringify(cart));
-            }
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
 
-            function addEventListeners() {
-                document.querySelectorAll('.plus-btn').forEach(btn => {
-                    btn.addEventListener('click', function () {
-                        const row = this.closest('.table-row');
-                        const itemName = row.querySelector('.item-name').textContent;
-                        const cartItem = cart.find(item => item.name === itemName);
+        function addEventListeners() {
+            document.querySelectorAll('.plus-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = this.closest('.table-row');
+                    const itemName = row.querySelector('.item-name').textContent;
+                    const cartItem = cart.find(item => item.name === itemName);
 
-                        if (cartItem) {
-                            cartItem.quantity++;
-                            saveCart();
-                            updateDisplay();
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.minus-btn').forEach(btn => {
-                    btn.addEventListener('click', function () {
-                        const row = this.closest('.table-row');
-                        const itemName = row.querySelector('.item-name').textContent;
-                        const cartItem = cart.find(item => item.name === itemName);
-
-                        if (cartItem && cartItem.quantity > 0) {
-                            cartItem.quantity--;
-                            if (cartItem.quantity === 0) {
-                                cart = cart.filter(item => item.name !== itemName);
-                            }
-                            saveCart();
-                            updateDisplay();
-                        }
-                    });
-                });
-            }
-
-            function updateDisplay() {
-                const cartItemsDiv = document.getElementById('cart-items');
-                const emptyCartDiv = document.getElementById('empty-cart');
-                const summaryDiv = document.getElementById('order-summary');
-
-                if (cart.length === 0) {
-                    cartItemsDiv.style.display = 'none';
-                    summaryDiv.style.display = 'none';
-                    emptyCartDiv.style.display = 'block';
-                    return;
-                }
-
-                cartItemsDiv.style.display = 'block';
-                summaryDiv.style.display = 'block';
-                emptyCartDiv.style.display = 'none';
-
-                // Clear existing rows except header
-                const existingRows = cartItemsDiv.querySelectorAll('.table-row');
-                existingRows.forEach(row => row.remove());
-
-                cart.forEach(item => {
-                    const rowHtml = `
-                    <div class="table-row" data-item="${item.name.toLowerCase().replace(' ', '-')}" data-price="${item.price}">
-                        <div class="item-name">${item.name}</div>
-                        <div class="quantity-controls">
-                            <div class="qty-btn minus-btn">-</div>
-                            <div class="qty-display">${item.quantity}</div>
-                            <div class="qty-btn plus-btn">+</div>
-                        </div>
-                        <div class="amount">₹${(item.price * item.quantity).toFixed(2)}</div>
-                    </div>
-                `;
-                    cartItemsDiv.insertAdjacentHTML('beforeend', rowHtml);
-                });
-
-                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const gstAmount = subtotal * 0.18;
-
-                // Calculate Discount
-                let discountAmount = 0;
-                let activeOffer = null;
-                try {
-                    activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
-                } catch (e) { console.error(e); }
-
-                let discountRowHtml = '';
-                if (activeOffer && activeOffer.percent) {
-                    discountAmount = subtotal * (activeOffer.percent / 100);
-                    discountRowHtml = `
-                        <div class="summary-row" style="color: #28a745;">
-                            <span>Discount (${activeOffer.percent}% - ${activeOffer.code}):</span>
-                            <span>-₹${discountAmount.toFixed(2)}</span>
-                        </div>
-                    `;
-                }
-
-                const total = subtotal + gstAmount - discountAmount;
-
-                // Update Summary HTML
-                // We'll rebuild the standard rows to insert discount correctly
-                summaryDiv.innerHTML = `
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span id="subtotal">₹${subtotal.toFixed(2)}</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>GST (18%):</span>
-                        <span id="gst">₹${gstAmount.toFixed(2)}</span>
-                    </div>
-                    ${discountRowHtml}
-                    <div class="summary-row total">
-                        <span>Total:</span>
-                        <span id="total">₹${total.toFixed(2)}</span>
-                    </div>
-                    <button class="pay-btn" onclick="proceedToPay()">PAY</button>
-                `;
-
-                addEventListeners();
-            }
-
-            function addToCart(itemName, price) {
-                const existingItem = cart.find(item => item.name === itemName);
-
-                if (existingItem) {
-                    existingItem.quantity++;
-                } else {
-                    cart.push({ name: itemName, price: price, quantity: 1 });
-                }
-                saveCart();
-                updateDisplay();
-            }
-
-            async function proceedToPay() {
-                if (cart.length === 0) {
-                    alert('Your cart is empty!');
-                    return;
-                }
-
-                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                if (!currentUser) {
-                    alert('Please login to place an order');
-                    window.location.href = 'login-sign.html';
-                    return;
-                }
-
-                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const gstAmount = subtotal * 0.18;
-                let discountAmount = 0;
-                let activeOffer = null;
-                try {
-                    activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
-                } catch (e) { console.error(e); }
-
-                if (activeOffer && activeOffer.percent) {
-                    discountAmount = subtotal * (activeOffer.percent / 100);
-                }
-
-                const total = subtotal + gstAmount - discountAmount;
-
-                try {
-                    const response = await fetch('/api/orders', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            userId: currentUser.id,
-                            items: cart,
-                            totalAmount: total
-                        })
-                    }); // fixed missing closing parenthesis
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        alert('Payment successful! Redirecting to bill...');
-
-                        // Save current order details for bill page
-                        const currentOrder = {
-                            orderId: data.orderId,
-                            items: cart,
-                            totalAmount: total
-                        };
-                        localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
-
-                        // Clear cart and offers
-                        cart = [];
+                    if (cartItem) {
+                        cartItem.quantity++;
                         saveCart();
-                        localStorage.removeItem('activeOffer');
-
-                        window.location.href = 'bill.html';
-                    } else {
-                        alert('Order failed: ' + data.message);
+                        updateDisplay();
                     }
-                } catch (error) {
-                    console.error('Error placing order:', error);
-                    alert('Network error. Please try again.');
-                }
-            }
-
-
-
-            function checkUrlParams() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const item = urlParams.get('item');
-                const price = urlParams.get('price');
-
-                if (item && price) {
-                    addToCart(item, parseFloat(price));
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                loadCart();
-                checkUrlParams();
+                });
             });
 
-            // Make functions available globally for external calls
-            window.addToCart = addToCart;
-        </script>
-</body>
+            document.querySelectorAll('.minus-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = this.closest('.table-row');
+                    const itemName = row.querySelector('.item-name').textContent;
+                    const cartItem = cart.find(item => item.name === itemName);
 
+                    if (cartItem && cartItem.quantity > 0) {
+                        cartItem.quantity--;
+                        if (cartItem.quantity === 0) {
+                            cart = cart.filter(item => item.name !== itemName);
+                        }
+                        saveCart();
+                        updateDisplay();
+                    }
+                });
+            });
+        }
+
+        function updateDisplay() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const emptyCartDiv = document.getElementById('empty-cart');
+            const summaryDiv = document.getElementById('order-summary');
+
+            if (cart.length === 0) {
+                cartItemsDiv.style.display = 'none';
+                summaryDiv.style.display = 'none';
+                emptyCartDiv.style.display = 'block';
+                return;
+            }
+
+            cartItemsDiv.style.display = 'block';
+            summaryDiv.style.display = 'block';
+            emptyCartDiv.style.display = 'none';
+
+            // Clear existing rows except header
+            const existingRows = cartItemsDiv.querySelectorAll('.table-row');
+            existingRows.forEach(row => row.remove());
+
+            cart.forEach(item => {
+                const rowHtml = `
+                <div class="table-row" data-item="${item.name.toLowerCase().replace(' ', '-')}" data-price="${item.price}">
+                    <div class="item-name">${item.name}</div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn minus-btn"><i class="bi bi-dash"></i></button>
+                        <div class="qty-display">${item.quantity}</div>
+                        <button class="qty-btn plus-btn"><i class="bi bi-plus"></i></button>
+                    </div>
+                    <div class="amount">₹${(item.price * item.quantity).toFixed(2)}</div>
+                </div>
+            `;
+                cartItemsDiv.insertAdjacentHTML('beforeend', rowHtml);
+            });
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const gstAmount = subtotal * 0.18;
+
+            // Calculate Discount
+            let discountAmount = 0;
+            let activeOffer = null;
+            try {
+                activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
+            } catch (e) { console.error(e); }
+
+            let discountRowHtml = '';
+            if (activeOffer && activeOffer.percent) {
+                discountAmount = subtotal * (activeOffer.percent / 100);
+                discountRowHtml = `
+                    <div class="summary-row" style="color: #28a745;">
+                        <span>Discount (${activeOffer.percent}% - ${activeOffer.code}):</span>
+                        <span>-₹${discountAmount.toFixed(2)}</span>
+                    </div>
+                `;
+            }
+
+            const total = subtotal + gstAmount - discountAmount;
+
+            // Update Summary HTML
+            summaryDiv.innerHTML = `
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal" class="text-dark fw-bold">₹${subtotal.toFixed(2)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>GST (18%):</span>
+                    <span id="gst" class="text-dark fw-bold">₹${gstAmount.toFixed(2)}</span>
+                </div>
+                ${discountRowHtml}
+                <div class="summary-row total">
+                    <span>Grand Total:</span>
+                    <span id="total">₹${total.toFixed(2)}</span>
+                </div>
+                <button class="pay-btn" onclick="proceedToPay()"><i class="bi bi-credit-card me-2"></i> Proceed to Pay</button>
+            `;
+
+            addEventListeners();
+        }
+
+        function addToCart(itemName, price) {
+            const existingItem = cart.find(item => item.name === itemName);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name: itemName, price: price, quantity: 1 });
+            }
+            saveCart();
+            updateDisplay();
+        }
+
+        async function proceedToPay() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('Please login to place an order');
+                window.location.href = 'login-sign.html';
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const gstAmount = subtotal * 0.18;
+            let discountAmount = 0;
+            let activeOffer = null;
+            try {
+                activeOffer = JSON.parse(localStorage.getItem('activeOffer'));
+            } catch (e) { console.error(e); }
+
+            if (activeOffer && activeOffer.percent) {
+                discountAmount = subtotal * (activeOffer.percent / 100);
+            }
+
+            const total = subtotal + gstAmount - discountAmount;
+
+            // Change button to loading state
+            const payBtn = document.querySelector('.pay-btn');
+            const originalText = payBtn.innerHTML;
+            payBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing...';
+            payBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        items: cart,
+                        totalAmount: total
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Save current order details for bill page
+                    const currentOrder = {
+                        orderId: data.orderId,
+                        items: cart,
+                        totalAmount: total
+                    };
+                    localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
+
+                    // Clear cart and offers
+                    cart = [];
+                    saveCart();
+                    localStorage.removeItem('activeOffer');
+
+                    window.location.href = 'bill.html';
+                } else {
+                    alert('Order failed: ' + data.message);
+                    payBtn.innerHTML = originalText;
+                    payBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error placing order:', error);
+                alert('Network error. Please try again.');
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }
+        }
+
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const item = urlParams.get('item');
+            const price = urlParams.get('price');
+
+            if (item && price) {
+                addToCart(item, parseFloat(price));
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle Login button purely aesthetically matching home.html
+            const currentUser = localStorage.getItem('currentUser');
+            const signInBtn = document.getElementById('signInButton');
+            if (currentUser && signInBtn) {
+                signInBtn.textContent = 'Logout';
+                signInBtn.href = '#';
+                signInBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('currentUser');
+                        window.location.reload();
+                    }
+                });
+            }
+
+            loadCart();
+            checkUrlParams();
+        });
+
+        window.addToCart = addToCart;
+    </script>
+</body>
 </html>

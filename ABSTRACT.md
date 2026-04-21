@@ -1,6 +1,6 @@
-# Abstract: Tap2Bill (NoCounterBill)
+# Abstract: Tap2Bill (Tap2Bill)
 
-**Project Title:** Tap2Bill (NoCounterBill)
+**Project Title:** Tap2Bill (Tap2Bill)
 
 **Overview:**
 Tap2Bill is a comprehensive web-based application designed to revolutionize the dining experience in restaurants and canteens by eliminating the need for traditional physical ordering counters. In an era where contactless and efficient service is paramount, Tap2Bill provides a digital platform that bridges the gap between customers and kitchen operations, ensuring a seamless flow from order placement to billing.
@@ -23,4 +23,4 @@ The application is built using a robust full-stack architecture:
 - **Database:** MongoDB for efficient storage and retrieval of user profiles, order logs, and menu data.
 
 **Impact:**
-By digitizing the ordering and billing process, Tap2Bill enhances the customer experience with speed and convenience while providing restaurant owners with a streamlined tool to manage orders and improve service turnover. It represents a step forward in smart dining technology, making "NoCounterBill" a reality.
+By digitizing the ordering and billing process, Tap2Bill enhances the customer experience with speed and convenience while providing restaurant owners with a streamlined tool to manage orders and improve service turnover. It represents a step forward in smart dining technology, making "Tap2Bill" a reality.

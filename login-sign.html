@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nocounterbill - Authentication</title>
+    <title>Tap2Bill - Authentication</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #ffaa6d 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #fffcf9 0%, #ffedd9 100%);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .auth-container {
@@ -46,11 +47,11 @@
         }
 
         .company-name h1 {
-            color: #e53e3e;
-            font-weight: 700;
+            color: #d2691e;
+            font-weight: 800;
             font-size: 3rem;
             margin-bottom: 10px;
-            font-family: Cursive;
+            letter-spacing: -1px;
         }
 
         .company-name .tagline {
@@ -74,12 +75,12 @@
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            border-color: #d2691e;
+            box-shadow: 0 0 0 0.25rem rgba(210, 105, 30, 0.25);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #d2691e !important;
             border: none;
             border-radius: 10px;
             padding: 15px;
@@ -87,11 +88,12 @@
             font-weight: 600;
             width: 100%;
             transition: all 0.3s ease;
+            color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(210, 105, 30, 0.3);
         }
 
         .form-switch {
@@ -107,14 +109,14 @@
         }
 
         .switch-link {
-            color: #667eea;
+            color: #d2691e;
             text-decoration: none;
             font-weight: 600;
             cursor: pointer;
         }
 
         .switch-link:hover {
-            color: #764ba2;
+            color: #b85b19;
         }
 
         .error {
@@ -168,7 +170,7 @@
         <div class="auth-card">
 
             <div class="company-name">
-                <h1>NoCounterBill</h1>
+                <h1>Tap2Bill</h1>
                 <p class="tagline">Seamless Hotel Food Ordering</p>
             </div>
 
@@ -199,9 +201,11 @@
                     </button>
                     <br>
                     <br>
-
-
                 </form>
+
+                <!-- login form over  -->
+
+
                 <div class="mt-3 text-center">
                     <a href="home.html" class="btn btn-primary">
                         <i class="fas fa-home me-2"></i> Home
@@ -294,6 +298,7 @@
 
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
+
                 icon.classList.remove('fa-eye');
                 icon.classList.add('fa-eye-slash');
             } else {
@@ -319,7 +324,7 @@
                 clearErrors();
             });
 
-
+//check if a field is valid or not 
             function validateField(fieldId, errorId, validationFunction) {
                 const field = $('#' + fieldId);
                 const error = $('#' + errorId);
@@ -420,7 +425,7 @@
                     const data = await response.json();
 
                     if (data.success) {
-                        // alert('Login successful! Welcome back, ' + data.user.name);
+                        // Login successfull 
                         localStorage.setItem('currentUser', JSON.stringify(data.user)); // Save user session
                         window.location.href = "home.html";
                     } else {

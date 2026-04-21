@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bill Receipt - NoCounterBill</title>
+    <title>Bill Receipt - Tap2Bill</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -82,6 +82,24 @@
             background: #b55a19;
             color: white;
         }
+
+        .timer-section {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid #ffeeba;
+        }
+
+        .timer-display {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: monospace;
+            margin-top: 5px;
+            color: #d2691e;
+        }
     </style>
 </head>
 
@@ -89,7 +107,7 @@
 
     <div class="bill-container">
         <div class="header">
-            <h2>NoCounterBill</h2>
+            <h2>Tap2Bill</h2>
             <p>Order Receipt</p>
             <p id="orderDate"></p>
             <p id="orderId" style="font-size: 12px; color: #999;"></p>
@@ -104,6 +122,11 @@
                 <span>Total Amount:</span>
                 <span id="totalAmount">₹0.00</span>
             </div>
+        </div>
+
+        <div class="timer-section">
+            <div>Your order will get ready in</div>
+            <div id="countdownTimer" class="timer-display">10:00</div>
         </div>
 
         <div class="footer">
@@ -135,6 +158,36 @@
                 `;
                 itemsList.appendChild(row);
             });
+
+            // Timer logic
+            const timerDisplay = document.getElementById('countdownTimer');
+            let timeLeft = 10 * 60; // 10 minutes in seconds
+            
+            const orderKey = `orderTimer_${currentOrder.orderId || 'default'}`;
+            const storedStartTime = localStorage.getItem(orderKey);
+            
+            if (storedStartTime) {
+                const elapsedSeconds = Math.floor((Date.now() - parseInt(storedStartTime)) / 1000);
+                timeLeft = Math.max(0, timeLeft - elapsedSeconds);
+            } else {
+                localStorage.setItem(orderKey, Date.now().toString());
+            }
+
+            const updateTimer = () => {
+                if (timeLeft > 0) {
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    timeLeft--;
+                } else {
+                    timerDisplay.textContent = "Your order is ready!";
+                    timerDisplay.style.color = "green";
+                    clearInterval(timerInterval);
+                }
+            };
+            
+            updateTimer(); // Initial call
+            const timerInterval = setInterval(updateTimer, 1000);
         });
     </script>
 </body>
