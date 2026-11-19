@@ -10,7 +10,20 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
+
+// Enhanced Static Asset Caching (Improves Lighthouse & GTmetrix scores)
+app.use(express.static(__dirname, {
+    maxAge: '1d', // Cache static assets for 1 day by default
+    etag: true,
+    setHeaders: (res, filePath) => {
+        // Cache images aggressively for 7 days
+        if (filePath.match(/\.(png|jpg|jpeg|gif|webp|svg|ico)$/i)) {
+            res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
+        } else if (filePath.match(/\.(css|js)$/i)) {
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+        }
+    }
+}));
 
 // Root route
 app.get('/', (req, res) => {
@@ -137,6 +150,9 @@ app.post('/api/orders', async (req, res) => {
         const newOrder = new Order({ userId, items, totalAmount });
         await newOrder.save();
 
+        // Invalidate trending cache so fresh order data is factored in
+        trendingCache = null;
+
         res.status(201).json({ success: true, message: 'Order created successfully', orderId: newOrder._id });
     } catch (error) {
         console.error('Order creation error:', error);
@@ -160,9 +176,22 @@ app.get('/api/orders/:userId', async (req, res) => {
 //  TRENDING FOOD DETECTION — ML (Time-Decay Exponential Smoothing)
 // Algorithm: Score = Σ( quantity × e^(−λ × hours_ago) )
 // λ = 0.005 → recent orders score higher; older orders decay gradually
+let trendingCache = null;
+let trendingCacheExpiry = 0;
 
 app.get('/api/trending', async (req, res) => {
     try {
+        const now = Date.now();
+
+        // Return in-memory cached results if still valid (10-minute cache)
+        if (trendingCache && now < trendingCacheExpiry) {
+            return res.json({
+                ...trendingCache,
+                cached: true,
+                cacheExpiresInSeconds: Math.round((trendingCacheExpiry - now) / 1000)
+            });
+        }
+
         const LAMBDA = 0.005;
         const DAYS_BACK = 30;
         const TOP_N = 5;
@@ -181,7 +210,6 @@ app.get('/api/trending', async (req, res) => {
             });
         }
 
-        const now = Date.now();
         const scoreMap = {}; // { itemName: { score, totalOrders } 
 
         recentOrders.forEach(order => {
@@ -212,14 +240,20 @@ app.get('/api/trending', async (req, res) => {
             .sort((a, b) => b.score - a.score)
             .slice(0, TOP_N);
 
-        res.json({
+        const responsePayload = {
             success: true,
             trending,
             totalItemsAnalyzed: Object.keys(scoreMap).length,
             totalOrdersAnalyzed: recentOrders.length,
             lastUpdated: new Date(),
             nextRefreshIn: '10 minutes'
-        });
+        };
+
+        // Cache for 10 minutes (600,000 ms)
+        trendingCache = responsePayload;
+        trendingCacheExpiry = now + 10 * 60 * 1000;
+
+        res.json(responsePayload);
 
     } catch (error) {
         console.error('Trending detection error:', error);
